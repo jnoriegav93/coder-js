@@ -9,3 +9,4 @@
 5- git log => todo el listado de los commit<br>
 6- git commit --amend => para cambiar el último commit<br>
 7- git checkout -b rama-coder => crear nuevas ramas<br>
+8- git merge rama-coder => combina la rama actual (master) con otra rama
