@@ -32,6 +32,12 @@ header nav ul li{
 header ul li a {
     text-decoration: none;
 }
+header ul li a:link,
+header ul li a:visited,
+header ul li a:hover,
+header ul li a:active, .left {
+    color: white;
+  }
 header .left{
     float:left;
 }
