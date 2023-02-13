@@ -1,6 +1,9 @@
-body, ul{
+html, ul{
     padding: 0;
     margin: 0;
+}
+body{    
+    background-color: #0f0f0f;
 }
 /*Header*/
 header{
@@ -58,14 +61,6 @@ header ul li a {
     font-size: 1em;
 }
 
-.input-label input{
-    display: block;
-}
-.input-label{
-    display: inline-block;
-}
-
-/*Footer*/
 
 div{
     border: 1px dotted #bbb;
@@ -81,6 +76,20 @@ div{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.input-label input{
+    display: block;
+}
+.input-label{
+    display: inline-block;
+}
+.input-label:has(input:required) label:after {
+    content: '*';
+    color: darkred;
+}
+
+/*Footer*/
+
+
 
 /*Adicionales*/
 .center{
@@ -90,3 +99,31 @@ div{
 .inline-b {
     display: inline-block;
 }
+
+@keyframes loader {
+    0%{
+        transform: scale(0);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+.loader::after,
+.loader::before{
+    animation: loader 2s linear infinite;
+    content: '';
+    border: 2px solid #fff;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    border-radius: 50%;
+    bottom: 0;
+    left: auto;
+}
+.loader::after{
+    opacity:  0;
+    animation-delay: 1s;
+}
+

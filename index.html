@@ -20,7 +20,7 @@
             </ul>
         </nav>
     </header>
-    <section>
+    <section>        
         <div class="main">
             <h1 class="title">Título</h1>
             <h5 class="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
@@ -30,21 +30,22 @@
                 <div class="inputs center">
                     <div class="input-label">
                         <label for="input1">Input 1</label>
-                        <input type="number" name="input1" id="input1">
+                        <input type="number" name="input1" id="input1"required>
                     </div>
                     <div class="input-label">
                         <label for="input2">Input 2</label>
-                        <input type="number" name="input2" id="input2">
+                        <input type="number" name="input2" id="input2"required>
                     </div>
                     <div class="input-label">
                         <label for="input3">Input 3</label>
-                        <input type="number" name="input3" id="input3">
+                        <input type="number" name="input3" id="input3" required>
                     </div>
                     <div class="send inxline-b">
                         <button id="calcularEnvio">CALCULAR</button>
                     </div>
-                </div>
-                <div class="center">
+                </div>                
+                <div class="center">                    
+                    <span class="loader"></span>
                     <label for="result">El resultado es:</label>
                     <span id="result"></span>
                 </div>
