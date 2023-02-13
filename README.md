@@ -6,3 +6,4 @@
 3- git reset . => revierte
 3- git commit -m "Nombre" => cambios
 4- git checkout -- . => revertir último cambio
+5- git log => todo el listado de los commit
