@@ -1,9 +1,11 @@
 # coder
 
 # Comandos
-1- git init => crea repositorio
-2- git add . => toma todos los archivos y los prepara para el commit
-3- git reset . => revierte
-3- git commit -m "Nombre" => cambios
-4- git checkout -- . => revertir último cambio
-5- git log => todo el listado de los commit
+1- git init => crea repositorio<br>
+2- git add . => toma todos los archivos y los prepara para el commit<br>
+3- git reset . => revierte<br>
+3- git commit -m "Nombre" => cambios<br>
+4- git checkout -- . => revertir último cambio<br>
+5- git log => todo el listado de los commit<br>
+6- git commit --amend => para cambiar el último commit
+7- git checkout -b rama-coder => crear nuevas ramas 
