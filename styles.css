@@ -9,6 +9,30 @@ header{
     width: 90vw;
     margin: auto;
 }
+header nav{
+    float: left;
+	margin: 0 0 3em 0;
+	padding: 0;
+    width: 100%;
+    list-style-type: none;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+header nav ul li{
+    float: left;
+    padding: 8px 15px;
+    list-style-type: none;
+    text-align: center;
+    font-weight: bold;
+    color: #069;
+}
+header ul li a {
+    text-decoration: none;
+}
+header .left{
+    float:left;
+}
+/*
 header ul li{
     border: 1px double #eee;
     padding: 10px;
@@ -16,16 +40,11 @@ header ul li{
     text-align: center;
     list-style-type: none;
 }
-header .left{
-    float:left;
-}
-header .item{
-    float: right;
-}
 
 header ul li a {
     text-decoration: none;
 }
+*/
 /*Content*/
 .main{
     clear: both;
