@@ -16,6 +16,6 @@
 12. git remote add origin "link" => conectarse a un nuevo GIT
 13. git push => para subir a la web según todos los cambios **
 14. git commit -am "Texto" => para no poner git add y git commit *
-
+.
 15. git remote set-url origin "link" => actualizar la conexión a un GIT
 16. git push -u origin master => para subir todos los cambios actuales
