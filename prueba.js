@@ -1,4 +1,4 @@
-let inicio; 
+let inicio;
 do{
     inicio = parseInt(prompt('Ingrese una opción, para cerrar digite 0'));
     switch(inicio){
@@ -15,24 +15,49 @@ do{
 
 
 function evaluacion(){
+    let usuario = {
+        nombres : '',
+        respuestas: [],
+        correctas: 0,
+        incorrectas: 0
+    };
+    usuario.nombres = prompt('Bienvenido a la evaluación, ingrese sus nombres');
     let prueba = [
         {   
-            preguntaID: 1, 
-            bloque: 1, 
-            nroPregunta: 1, 
-            pregunta: '¿ (a == b) es igual a (a === b)?', 
-            alternativas : ['Sí','No','N.A.'],
+            preguntaID: 1,
+            bloque: 1,
+            nroPregunta: 1,
+            pregunta: '¿ (a == b) es igual a (a === b)?',
+            alternativas : {1: 'Sí', 2: 'No', 3: 'N.A.'},
             respuesta: 1
         },{   
-            preguntaID: 1, 
-            bloque: 1, 
-            nroPregunta: 1, 
-            pregunta: '¿ (a % b) es igual a (a / b)?', 
-            alternativas : ['Sí','No','N.A.'],
+            preguntaID: 2,
+            bloque: 1,
+            nroPregunta: 2,
+            pregunta: '¿ (a % b) es igual a (a / b)?',
+            alternativas : {1: 'Sí', 2: 'No', 3: 'N.A.'},
             respuesta: 1
         }
     ];
-    prueba.forEach(function(a,b){
-        console.log(a,b);
-    })
+    //Iniciar la prueba
+    prueba.forEach(function(item){
+        let respuesta_;
+        do{
+            // Estructura de las preguntas
+            let pregunta_ = 'Pregunta #'+ item.nroPregunta +
+            '\n------------------------------------------------\n'+
+            item.pregunta + '\n';
+            for (const [nro, alternativa] of Object.entries(item.alternativas)) {
+                pregunta_ += nro + ') '+ alternativa + '\n';
+            }
+            pregunta_ += '\n\nDigite una opción:';
+            // fin de Estructura de las preguntas
+            respuesta_ = parseInt(prompt(pregunta_)) || 0;
+            usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  respuesta_ }];
+        }while(respuesta_ > 0);
+    });
+    //Validar respuestas
+
+    //Mostrar resultados
+    alert('Resultado final:\n\n');
 }
