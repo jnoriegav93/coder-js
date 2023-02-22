@@ -42,26 +42,31 @@ function evaluacion(){
     ];
     //Iniciar la prueba
     prueba.forEach(function(item){
-        let respuesta_;
-        do{
-            // Estructura de las preguntas
-            let pregunta_ = 'Pregunta #'+ item.nroPregunta +
-            '\n------------------------------------------------\n'+
-            item.pregunta + '\n';
-            for (const [nro, alternativa] of Object.entries(item.alternativas)) {
-                pregunta_ += nro + ') '+ alternativa + '\n';
-            }
-            pregunta_ += '\n\nDigite una opción:';
-            // fin de Estructura de las preguntas
-            respuesta_ = parseInt(prompt(pregunta_)) || 0;
-            usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  respuesta_ }];
-            //Validar respuestas
-            usuario.correctas   += item.respuesta === respuesta_ ? 1 : 0;
-            usuario.incorrectas += item.respuesta !== respuesta_ ? 1 : 0;
-        }while(respuesta_ > 0);
-    });
+        let respuesta_, pregunta_;
+        // Estructura de las preguntas
+        pregunta_ = 'Pregunta #'+ item.nroPregunta +
+        '\n------------------------------------------------\n'+
+        item.pregunta + '\n';
+        for (const [nro, alternativa] of Object.entries(item.alternativas)) {
+            pregunta_ += nro + ') '+ alternativa + '\n';
+        }
+        pregunta_ += '\n\nDigite una opción:';
+        // fin de Estructura de las preguntas
+        respuesta_ = parseInt(prompt(pregunta_)) || -1;
+        while(respuesta_ < 0){
+            alert('Opción incorrecta, por favor digitar una opción de la lista');
+            respuesta_ = parseInt(prompt(pregunta_)) || -1;
+        };
 
+        usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  respuesta_ }];
+        //Validar respuestas
+        usuario.correctas   += item.respuesta === respuesta_ ? 1 : 0;
+        usuario.incorrectas += item.respuesta !== respuesta_ ? 1 : 0;
+    });
+    let resultado_final_ = 'Estimado(a)' + usuario.nombres + ':\n\n'+
+    'El resultado de su prueba es el siguiente:\n'+
+    'Correctas:   ' + usuario.correctas + '\nIncorrectas: '+ usuario.incorrectas;
 
     //Mostrar resultados
-    alert('Resultado final:\n\n');
+    alert('Resultado final:\n\n'+resultado_final_);
 }
