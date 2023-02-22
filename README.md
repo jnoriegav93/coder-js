@@ -13,6 +13,7 @@
 8. git merge rama-coder => combina la rama actual (master) con otra rama
 9. git checkout master => regresa a la rama actual
 10. git branch -d rama-coder => borrar rama
-11. git remote add origin "link"
+11. git remote add origin "link" => conectarse a un nuevo GIT
+12. git remote set-url origin "link" => actualizar la conexión a un GIT
 12. git push => para subir a la web según todos los cambios **
 13. git commit -am "Texto" => para no poner git add y git commit *
