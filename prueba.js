@@ -51,7 +51,7 @@ function evaluacion(){
             pregunta_ += nro + ') '+ alternativa + '\n';
         }
         pregunta_ += '\n\nDigite una opción:';
-        // fin de Estructura de las preguntas
+        // Fin de Estructura de las preguntas
         respuesta_ = parseInt(prompt(pregunta_)) || -1;
         while(respuesta_ < 0){
             alert('Opción incorrecta, por favor digitar una opción de la lista');
