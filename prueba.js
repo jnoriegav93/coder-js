@@ -1,6 +1,7 @@
 let inicio;
 do{
-    inicio = parseInt(prompt('Ingrese una opción, para cerrar digite 0'));
+    inicio = parseInt(prompt('Bienvenido\n\n'+
+    '1. Evaluación\n\nIngrese una opción, para cerrar digite 0'));
     switch(inicio){
         case 1:
             alert('eligió 1');
@@ -54,9 +55,12 @@ function evaluacion(){
             // fin de Estructura de las preguntas
             respuesta_ = parseInt(prompt(pregunta_)) || 0;
             usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  respuesta_ }];
+            //Validar respuestas
+            usuario.correctas   += item.respuesta === respuesta_ ? 1 : 0;
+            usuario.incorrectas += item.respuesta !== respuesta_ ? 1 : 0;
         }while(respuesta_ > 0);
     });
-    //Validar respuestas
+
 
     //Mostrar resultados
     alert('Resultado final:\n\n');
