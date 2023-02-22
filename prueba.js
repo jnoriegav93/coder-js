@@ -1,4 +1,4 @@
-let inicio;
+let inicio; 
 do{
     inicio = parseInt(prompt('Ingrese una opción'));
     switch(inicio){
