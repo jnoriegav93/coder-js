@@ -1,13 +1,13 @@
 let inicio;
 do{
-    inicio = parseInt(prompt('Bienvenido\n'+
+    inicio = parseInt(prompt('Bienvenido(a)\n'+
     'Digite una opción\n\n1. Evaluación\n\n0. Salir'));
     switch(inicio){
         case 1:
-            evaluacion();
+            evaluacion(); 
             break;
         case 2:
-            alert('eligió 2');
+            alert('Eligió 2');
             break;
     }
 
