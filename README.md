@@ -1,3 +1,5 @@
+Estudiante:  Jaime Noriega Vásquez
+
 # Primera pre entrega: Simulador interactivo
 - Web: https://jnoriegav93.github.io/coder/
 
@@ -14,6 +16,8 @@
 1. forEach
 2. Object.entries
 
+
+<!--
 # coder
 - https://jnoriegav93.github.io/coder/
 
@@ -42,4 +46,4 @@
 5. git add . => toma todos los archivos y los prepara para el commit
 6. git commit -m "Nombre" => cambios
 7. git push -u origin master => para subir todos los cambios actuales
-
+-->
