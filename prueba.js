@@ -1,19 +1,3 @@
-let inicio;
-do{
-    inicio = parseInt(prompt('Bienvenido(a)\n'+
-    'Digite una opción\n\n1. Evaluación\n\n0. Salir'));
-    switch(inicio){
-        case 1:
-            evaluacion(); 
-            break;
-        case 2:
-            alert('Eligió 2');
-            break;
-    }
-
-}while(inicio !== 0);
-
-
 function evaluacion(){
     let usuario = {
         nombres : '',
@@ -21,7 +5,8 @@ function evaluacion(){
         correctas: 0,
         incorrectas: 0
     };
-    //Preguntas
+    const linea = '\n------------------------------------------------\n';
+    //Listado de preguntas
     let prueba = [
         {   
             preguntaID: 1,
@@ -71,45 +56,51 @@ function evaluacion(){
             respuesta: 1
         }
     ];
-    //Iniciar la prueba
+    // Iniciar la prueba
     usuario.nombres = prompt('Bienvenido a la evaluación, ingrese sus nombres (al menos 3 caracteres):');
     while(usuario.nombres.length < 3){
         usuario.nombres = prompt('Bienvenido a la evaluación, ingrese sus nombres (al menos 3 caracteres):');
     }
     prueba.forEach(function(item){
-        let respuesta_, pregunta_;
+        let rpta_ingresada, pregunta;
         // Estructura de las preguntas
-        pregunta_ = 'Pregunta #'+ item.nroPregunta +
-        '\n------------------------------------------------\n'+
-        item.pregunta + '\n';
+        pregunta = `Pregunta #${item.nroPregunta}${linea}${item.pregunta}\n`;
         for (const [nro, alternativa] of Object.entries(item.alternativas)) {
-            pregunta_ += nro + ') '+ alternativa + '\n';
+            pregunta += `${nro}) ${alternativa}.\n`;
         }
-        pregunta_ += '\nDigite una opción:';
-        // Fin de Estructura de las preguntas
-        respuesta_ = parseInt(prompt(pregunta_)) || -1;
-        while(respuesta_ < 0){
+        pregunta += '\nDigite el número de la opción:';
+        // Ingreso de las respuestas
+        rpta_ingresada = parseInt(prompt(pregunta)) || -1;
+        while(rpta_ingresada < 0  || rpta_ingresada > parseInt(Object.keys(item.alternativas)[[Object.keys(item.alternativas).length - 1]]) ){
             alert('Opción incorrecta, por favor digitar una opción de la lista');
-            respuesta_ = parseInt(prompt(pregunta_)) || -1;
+            rpta_ingresada = parseInt(prompt(pregunta)) || -1;
         };
-
-        usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  respuesta_ }];
-        //Validar respuestas
-        usuario.correctas   += item.respuesta === respuesta_ ? 1 : 0;
-        usuario.incorrectas += item.respuesta !== respuesta_ ? 1 : 0;
+        usuario.respuestas =  [ { preguntaID: item.preguntaID, respuesta:  rpta_ingresada }];
+        // Validar respuestas
+        usuario.correctas   += item.respuesta === rpta_ingresada ? 1 : 0;
+        usuario.incorrectas += item.respuesta !== rpta_ingresada ? 1 : 0;
     });
-    let resultado_final_ = '------------------------------------------------\n'+
-    'Estimado(a) ' + usuario.nombres + ':'+
-    '\nEl resultado de su prueba es de ('+(usuario.correctas*100/(usuario.correctas+usuario.incorrectas))+'%):\n'+
-    'Correctas:   ' + usuario.correctas + '\nIncorrectas: '+ usuario.incorrectas;
-    //Mostrar resultados
-    alert('Resultado final:\n'+resultado_final_);
-
-
-    
-    let resultado_final_html = '<b>Estimado(a) ' + usuario.nombres + ':</b><br>'+
-    'El resultado de su prueba es de ('+(usuario.correctas*100/(usuario.correctas+usuario.incorrectas))+'%):<br>'+
-    'Correctas:   ' + usuario.correctas + '<br>Incorrectas: '+ usuario.incorrectas;
-
+    // Mostrar resultados
+    let porcentaje_final = usuario.correctas*100/(usuario.correctas+usuario.incorrectas);
+    let resultado_final = `Resultado final:${linea}Estimado(a)  ${usuario.nombres}:`+ 
+                          `\nEl resultado de su prueba es de (${porcentaje_final}%):\n`+ 
+                          `Correctas:   ${usuario.correctas}\nIncorrectas: ${usuario.incorrectas}`;
+    alert(resultado_final);
+    // HTML
+    let resultado_final_html =  `<h4>Estimado(a)  ${usuario.nombres}:</h4>`+ 
+                                `El resultado de su prueba es de (${porcentaje_final}%):<br>`+ 
+                                `Correctas:    ${usuario.correctas}<br>Incorrectas: ${usuario.incorrectas}`;
     document.getElementById('resultado_prueba').innerHTML = resultado_final_html;
 }
+
+//Menú
+let inicio;
+do{
+    inicio = parseInt(prompt('Bienvenido(a)\n'+
+    'Digite una opción\n\n1. Evaluación\n\n0. Salir'));
+    switch(inicio){
+        case 1:
+            evaluacion(); 
+            break;
+    }
+}while(inicio !== 0);
