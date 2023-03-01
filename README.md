@@ -18,7 +18,10 @@
 14. git commit -am "Texto" => para no poner git add y git commit *
 
 #
-1. git remote set-url origin "link" => actualizar la conexión a un GIT
-2. git add . => toma todos los archivos y los prepara para el commit
-3. git commit -m "Nombre" => cambios
-4. git push -u origin master => para subir todos los cambios actuales
+1. git clone "link" => descargar el repositorio desde la web
+2. cd folder => ingresar a la carpeta
+3. code . => abrir toda la carpeta en VS Code
+4. git remote set-url origin "link" => actualizar la conexión a un GIT
+5. git add . => toma todos los archivos y los prepara para el commit
+6. git commit -m "Nombre" => cambios
+7. git push -u origin master => para subir todos los cambios actuales
