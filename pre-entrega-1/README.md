@@ -1,4 +1,23 @@
 Estudiante:  Jaime Noriega Vásquez
+
+# Primera pre entrega: Simulador interactivo
+- Web: https://jnoriegav93.github.io/coder/
+
+## Elementos y funciones utilizadas
+1. Funciones
+2. Objetos
+3. prompt
+4. parseInt
+5. while
+6. for
+7. do while
+
+## Elementos adicionales
+1. forEach
+2. Object.entries
+
+
+<!--
 # coder
 - https://jnoriegav93.github.io/coder/
 
@@ -27,4 +46,4 @@ Estudiante:  Jaime Noriega Vásquez
 5. git add . => toma todos los archivos y los prepara para el commit
 6. git commit -m "Nombre" => cambios
 7. git push -u origin master => para subir todos los cambios actuales
-
+-->
