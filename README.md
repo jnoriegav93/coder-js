@@ -1,6 +1,5 @@
-# Proy
-# Web desplegada
-1. https://jnoriegav93.github.io/coder/
+# Primera pre entrega: Simulador interactivo
+- Web: https://jnoriegav93.github.io/coder/
 
 ## Elementos y funciones utilizadas
 1. Funciones
@@ -16,7 +15,7 @@
 2. Object.entries
 
 # coder
-1. https://jnoriegav93.github.io/coder/
+- https://jnoriegav93.github.io/coder/
 
 ## Comandos nuevo repositorio
 1. git init => crea repositorio
