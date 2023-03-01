@@ -5,7 +5,7 @@ function evaluacion(){
         correctas: 0,
         incorrectas: 0
     };
-    const linea = '\n-----------------------------------------------\n';
+    const linea = '\n------------------------------------------------\n';
     //Listado de preguntas
     let prueba = [
         {   
