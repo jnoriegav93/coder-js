@@ -1,8 +1,9 @@
-Estudiante:  Jaime Noriega Vásquez
-# Repositorio para Coderhouse
-- https://jnoriegav93.github.io/coder/
+Estudiante: Jaime Noriega Vásquez
 
-## Comandos nuevo repositorio
+# Repositorio para Coderhouse
+https://jnoriegav93.github.io/coder/
+
+##  Comandos nuevo repositorio
 1. git init => crea repositorio
 2. git add . => toma todos los archivos y los prepara para el commit
 3. git reset . => revierte
@@ -23,8 +24,8 @@ Estudiante:  Jaime Noriega Vásquez
 2. cd folder => ingresar a la carpeta
 3. code . => abrir toda la carpeta en VS Code
 4. git remote set-url origin "link" => actualizar la conexión a un GIT
-###   Subir cambios 
-5. git add . => toma todos los archivos y los prepara para el commit
-6. git commit -m "Nombre" => cambios
-7. git push -u origin master => para subir todos los cambios actuales
 
+### Subir cambios
+1. git add . => toma todos los archivos y los prepara para el commit
+2. git commit -m "Nombre" => cambios
+3. git push -u origin master => para subir todos los cambios actuales
