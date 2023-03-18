@@ -1,6 +1,6 @@
 Estudiante:  Jaime Noriega Vásquez
 
-# Primera pre entrega: Estructura, variables y objetos
+# Primera pre entrega: Simulador interactivo
 - Web: https://jnoriegav93.github.io/coder/pre-entrega-1/
 
 ## Instrucciones del programa
