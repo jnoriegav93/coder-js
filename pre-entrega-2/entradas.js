@@ -3,28 +3,26 @@
 
 const usuario = {
     nombres : '',
-    entradas: [],
     subtotal : 0,
     total : 0
 }
 
 class Entrada  {
-    constructor(id,nombre,precio,stock,enumerado,grupos) {
+    constructor(id,nombre,precio,stock) {
         this.id = id
         this.nombre = nombre
         this.precio = precio
         this.stock = stock
-        this.enumerado = enumerado
     }
 }
 
 const dscto = 0.15;
 
 const arrayEntrada = [
-    new Entrada(1, "General",  35, 321,false),
-    new Entrada(2, "Campo"  ,  50,  88,false),
-    new Entrada(3, "VIP"    ,  70,  45,true ),
-    new Entrada(4, "Box"    , 130,  12,true )
+    new Entrada(1, "General",  35, 321),
+    new Entrada(2, "Campo"  ,  50,  88),
+    new Entrada(3, "VIP"    ,  70,  45),
+    new Entrada(4, "Box"    , 130,  12)
 ];
 
 
