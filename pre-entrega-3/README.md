@@ -1,6 +1,6 @@
 Estudiante:  Jaime Noriega Vásquez
 
-# Tercera pre entrega: JSON, Storage, DOM y eventos
+# Tercera pre entrega: Optimización del proyecto
 - Web: https://jnoriegav93.github.io/coder/pre-entrega-3/
 
 ## Instrucciones del programa
