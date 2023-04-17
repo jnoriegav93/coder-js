@@ -1,0 +1,53 @@
+{
+    "productos": 
+    [
+        {   "id": 1, 
+            "nombre": "Polo con diseño de cráneo", 
+            "tipo": "Polo",  
+            "color":"Beige",  
+            "precio": 49.90, 
+            "stock": 10, 
+            "imagen": "craneo-1.jpg"
+        }, 
+        {   "id": 2, 
+            "nombre": "Gorro con diseño",
+            "tipo": "Gorro", 
+            "color":"Rojo",   
+            "precio": 30.00, 
+            "stock": 20, 
+            "imagen": "gorro-2.jpg"
+        }, 
+        {   "id": 3, 
+            "nombre": "Polo con diseño festival",  
+            "tipo": "Polo",  
+            "color":"Negro",  
+            "precio": 45.00, 
+            "stock": 80, 
+            "imagen": "polo2.jpg"
+        }, 
+        {   "id": 4, 
+            "nombre": "Polo con guitarra",
+            "tipo": "Polo",  
+            "color":"Negro",  
+            "precio": 45.00, 
+            "stock": 65, 
+            "imagen": "polo-guitarra.jpg"
+        }, 
+        {   "id": 5, 
+            "nombre": "Taza Blanca",
+            "tipo": "Taza",  
+            "color":"Blanco", 
+            "precio": 29.90, 
+            "stock": 50, 
+            "imagen": "taza-blanca.jpg"
+        }, 
+        {   "id": 6, 
+            "nombre": "Taza Negra",
+            "tipo": "Taza",  
+            "color":"Negro",  
+            "precio": 29.90, 
+            "stock": 50, 
+            "imagen": "taza-negra.jpg"
+        }
+    ]
+}
