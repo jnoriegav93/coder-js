@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-inicio.css">
+    <title>Evento - Inicio</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Evento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tienda.html">Tienda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <article class="bg-light mb-10">
+        <section>
+            <div class="portada" style="background: url('resources/img/inicio/portada-inicio.jpg'); background-size: cover; height: 500px; opacity: 0.6;"></div>
+        </section>
+        <section>
+            <div class="container py-5">
+                <h3 class="mb-5 text-center">Entradas</h3>
+                <div class="row col-md-10 offset-md-1">
+                    <div class="col-md-6 py-2 px-0">
+                        <ul class="lista-entradas">
+                            <li id="entrada-1"><div><h4>General</h4><p>Ubicación: Tribuna<br> Asientos: Sin butacas <br>Capacidad: 6000 entradas.<br>Nota: La ubicación es por orden de llegada.</p></div></li>
+                            <li id="entrada-2"><div><h4>Laterales</h4><p>Ubicación: Tribuna<br> Asientos: Butacas <br>Capacidad: 3200 entradas.<br>Nota: La ubicación es por orden de llegada, de acuerdo al bloque seleccionado.</p></div></li>
+                            <li id="entrada-3"><div><h4>Campo</h4><p>Ubicación: Campo<br> Asientos: No hay <br>Capacidad: 1200 entradas.<br>Nota: La ubicación es por orden de llegada.</p></div></li>
+                            <li id="entrada-4"><div><h4>VIP</h4><p>Ubicación: Campo<br> Asientos: Sillas de plástico <br>Capacidad: 800 entradas.<br>Nota: La ubicación es por orden de llegada.</p></div></li>
+                            <li id="entrada-5"><div><h4>Platinum</h4><p>Ubicación: Campo<br> Asientos: Sillas de plástico <br>Capacidad: 400 entradas.<br>Nota: La ubicación es por orden de llegada.</p></div></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 p-0 text-center mb-5">
+                        <img src="resources/img/inicio/mapas/mapa-todo.png" alt="concierto" class="img-fluid" id="imagen-mapa">
+                        <button class="btn btn-success btn-rounded btn-lg mt-2 px-5" id="comprarEntrada">Compra aquí</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+    <article>
+        <section class="bg-secondaxry text-dark">
+            <div class="container p-5">
+                <p>Por favor, toma en cuenta esta información:</p>
+                <ul>
+                    <li><small>VISA 15% DE DSCTO.: Preventa Exclusiva válida para Tarjetas de Crédito y Débito con VISA Válido hasta el 31/05/2023 11:59 p.m o agotar stock. Este descuento aplica para todos los tipos de entradas. <strong>Stock máximo para Preventa Exclusiva:</strong> General: 2000 entradas, Laterales: 1600 entradas, Campo: 800 entradas, VIP: Platinum: 300 entradas.</small></li>
+                    <li><small>Público recomendado: Desde los 8 años acompañados de un adulto responsable. Todos pagan entrada.</small></li>
+                    <li><small>Día del concierto: Sábado 8 de Julio del 2023, 5:00 p.m.</small></li>
+                    <li><small>Duración aproximada del evento: 4:00 Hrs.</small></li>
+                    <li><small>Precios incluyen comisión de ticketera.</small></li>
+                    <li><small>Todos los asistentes deberán respetar las indicaciones y señalizaciones del evento. Recordar que siempre se deberá cumplir con los protocolos establecidos para el cuidado de todos los asistentes.</small></li>
+                    <li><small>Deberán presentar su ticket o e-ticket para el ingreso. Todos los boletos serán escaneados al ingreso por medio de dispositivos digitales. En caso que el ticket o e-ticket esté roto, en mal estado o con indicios de falsificación, la producción u organizador podrán NO AUTORIZAR la entrada al recinto.</small></li>
+                    <li><small>Público recomendado: Desde los 8 años acompañados de un adulto responsable. Todos pagan entrada.</small></li>
+                    <li><small>Compra máxima: 6 tickets por persona.</small></li>
+                </ul>
+            </div>
+        </section>
+    </article>
+    <article>
+        <section class="py-5 bg-dark text-light" id="contacto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Contacto</h4>
+                        <ul class="list-group">
+                            <li class="mb-3"><h6>Sede central USA</h6>742 Evergreen Terrace, SPR - IL<br>(123) 856-54581</li>
+                            <li class="mb-3"><h6>Colombia</h6>Cl. 12 Nte. #4-20, Cali, Valle del Cauca<br>(57) 315 4199494</li>
+                            <li class="mb-3"><h6>Chile</h6>Cl. Uruguay 410, Valparaíso<br>(56) 8 5114 4497</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Nosotros</h4>
+                        <ul class="list-group">
+                            <li><a href="javascript:void(0)">Acerca de</a></li>
+                            <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
+                            <li><a href="javascript:void(0)">Términos y condiciones</a></li>
+                            <li><a href="javascript:void(0)">Políticas de privacidad</a></li>
+                            <li><a href="javascript:void(0)">Políticas de Cookies</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Categorías</h4>
+                        <ul class="list-group">
+                            <li><a href="javascript:void(0)">Stand up</a></li>
+                            <li><a href="javascript:void(0)">Conciertos</a></li>
+                            <li><a href="javascript:void(0)">Entretenimiento</a></li>
+                            <li><a href="javascript:void(0)">Arte y cultura</a></li>
+                            <li><a href="javascript:void(0)">Convenciones</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+    <footer class="text-center text-lg-start bg-secondary">
+        <!-- Copyright -->
+        <div class="text-center text-white p-3">
+          © 2023 - Entrega Final - Estudiante: Jaime Noriega Vásquez
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Modal datos de usuario-->
+    <div class="modal fade" id="modalEntradas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form id="formProcederPago">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bienvenido! Aquí podrás comprar tus entradas de manera segura.</p>
+                        <p>Aquí te dejo el detalle de entradas:</p>
+                        <div class="table-responsive mt-5 mb-3">
+                            <table id="tablaEntradas" class="table"></table>
+                        </div>
+                        <div class="table-responsive  col-md-6 offset-md-3" id="divSubTotal">
+                        </div>
+                        <p class="text-success">Recuerda que tienes un 15% pagando con VISA hasta el 31/05/2023 11:59 p.m. o agotar stock.</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">He leído, entiendo y acepto todas las condiciones indicadas en la página principal para comprar mis entradas.</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success btnProcederPago" disabled>Proceder con el pago</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fin Modal -->
+    <!-- Modal carrito de compras-->
+    <div class="modal fade" id="modalCarrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="formRealizarCompra">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Información del usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <span id="txtCarrito"></span>
+                        <div id="divCarrito" class="table table-responsive">
+                            <table id="tbCarrito" class="table">
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="nombreTarjeta">Ingrese su Correo:</label>
+                                <input type="email" name="correoUsuario" id="correoUsuario" placeholder="email@domain.com" class="form-control" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="nombreTarjeta">Nombres de la tarjeta:</label>
+                                <input type="text" name="nombreTarjeta" id="nombreTarjeta" placeholder="Ingrese nombres" class="form-control" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="numeroTarjeta">Numero de la tarjeta:</label>
+                                <input type="number" name="numeroTarjeta" id="numeroTarjeta" placeholder="#### #### ####" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <label for="expiracionTarjeta">Fecha de expiración:</label>
+                                <input type="text" name="expiracionTarjeta" id="expiracionTarjeta" placeholder="MM/YY" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <label for="cvvTarjeta">CVV:</label>
+                                <input type="password" name="cvvTarjeta" id="cvvTarjeta" placeholder="CVV" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Pagar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fin Modal -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="evento.js"></script>
+</body>
+</html>

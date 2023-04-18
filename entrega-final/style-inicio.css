@@ -1,0 +1,91 @@
+*{
+    font-size: 10pt;
+}
+body{
+    background-color: #c7c7c7;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* body {
+    background: url(url_tu_imagen); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    height: 100vh;
+  } */
+section, article{
+    padding: 0;
+    margin: 0;
+}
+
+footer{
+    font-size: 8pt;
+}
+.max-w-100px{
+    max-width: 100px !important;
+}
+
+.max-w-150px{
+    max-width: 150px !important;
+}
+
+.btn-rounded{
+    border-radius: 25px;
+}
+.lista-entradas{
+    list-style-type: none;
+    margin: 10 px auto;
+    /* padding: 0; */
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.lista-entradas li{
+    /* background-color: #cecece; */
+    display: table-row;
+    vertical-align: middle;
+    opacity: 0.6;
+}
+
+.lista-entradas li:hover{
+    background-color: #eeeded;
+    opacity: 1;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+#contacto h4{
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #bdbdbd;
+}
+
+#contacto h4:hover, #contacto ul li:hover{
+    color: #1e9aff;
+    transition: 0.3s;
+}
+#contacto ul{
+    list-style-type: none;
+}
+#contacto ul li{
+    margin: 5px 0px;
+}
+#contacto ul li a:hover{
+    color: #085ca0;
+}
+
+#contacto ul li a{
+    text-decoration: none;
+    color: #1e9aff;
+}
+
+#tablaEntradas{
+    min-width: 500px;
+}
+#tablaEntradas thead tr th{
+    font-size: 9pt;
+    font-weight: 100;
+    margin: 0px 20px;
+    min-width: 80px;
+}
+
+
