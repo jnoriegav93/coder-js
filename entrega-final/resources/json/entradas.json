@@ -1,0 +1,70 @@
+{
+    "entradas": 
+    [
+        {   "id": 1, 
+            "tipo": "General", 
+            "precio": 59.90,
+            "asientos": "Gradas sin butacas",
+            "detalle": "La ubicación es por orden de llegada",
+            "stock_prc": 65.3,
+            "habilitado" : true
+        },
+        {   "id": 2, 
+            "tipo": "Campo", 
+            "precio": 99.90,
+            "asientos": "No tiene",
+            "detalle": "La ubicación es por orden de llegada",
+            "stock_prc": 59.1,
+            "habilitado" : true
+        },
+        {   "id": 3, 
+            "tipo": "Laterales - Oriente 1", 
+            "precio": 199.90,
+            "asientos": "Butacas",
+            "detalle": "La ubicación es por orden de llegada. Ubicación más lejana al escenario de acuerdo al bloque.",
+            "stock_prc": 35.3,
+            "habilitado" : true
+        },
+        {   "id": 4, 
+            "tipo": "Laterales - Oriente 2", 
+            "precio": 259.90,
+            "asientos": "Butacas",
+            "detalle": "La ubicación es por orden de llegada. Ubicación más cercana al escenario de acuerdo al bloque.",
+            "stock_prc": 87.9,
+            "habilitado" : true
+        },
+        {   "id": 5, 
+            "tipo": "Laterales - Occidente 1", 
+            "precio": 199.90,
+            "asientos": "Butacas",
+            "detalle": "La ubicación es por orden de llegada. Ubicación más lejana al escenario de acuerdo al bloque.",
+            "stock_prc": 85.3,
+            "habilitado" : true
+        },
+        {   "id": 6, 
+            "tipo": "Laterales - Occidente 2", 
+            "precio": 259.90,
+            "asientos": "Butacas",
+            "detalle": "La ubicación es por orden de llegada. Ubicación más cercana al escenario de acuerdo al bloque.",
+            "stock_prc": 100,
+            "habilitado" : false
+        },
+        {   "id": 7, 
+            "tipo": "VIP", 
+            "precio": 259.90,
+            "asientos": "Asientos de plástico",
+            "detalle": "La asignación de asientos es por orden de llegada.",
+            "stock_prc": 92.9,
+            "habilitado" : true
+        },
+        {   "id": 8, 
+            "tipo": "Platinum", 
+            "precio": 259.90,
+            "asientos": "Asientos de plástico",
+            "detalle": "La asignación de asientos es por orden de llegada, de acuerdo al BOX disponible.",
+            "stock_prc": 88.4,
+            "habilitado" : true
+        }
+        
+    ]
+}
