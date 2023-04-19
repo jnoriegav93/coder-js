@@ -175,15 +175,15 @@ document.querySelector('#formProcederPago').addEventListener("submit", (e) => {
     <tbody>
         ${resultado}
         <tr>
-            <td class="text-start" colspan="2">Subtotal:</td>
+            <td class="text-start" colspan="3">Subtotal:</td>
             <td class="text-end pe-3"><span class="subtotal">${subTotal.toFixed(2)}</span></td>
         </tr>
         <tr>
-            <td class="text-start" colspan="2">Descuento:</td>
+            <td class="text-start" colspan="3">Descuento:</td>
             <td class="text-end pe-3"><span class="descuento">${(subTotal - (subTotal * dscto)).toFixed(2)}</span></td>
         </tr>
         <tr>
-            <td class="text-start" colspan="2">Total:</td>
+            <td class="text-start" colspan="3">Total:</td>
             <td class="text-end pe-3"><span class="total">${(subTotal * dscto).toFixed(2)}</span></td>
         </tr>
     </tbody>`; 
