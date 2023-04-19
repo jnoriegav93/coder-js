@@ -11,15 +11,18 @@ listaEntradas.forEach((item )=>{
 })
 
 class Entrada {
-    constructor(id,nombre,precio,cantidad, total) {
+    constructor(id,tipo,precio,cantidad, total) {
         this.id = id
-        this.nombre = nombre
+        this.tipo = tipo
         this.precio = precio
         this.cantidad = cantidad
         this.total = total
     }
 }
 let arrayEntradas = [];
+let costoEntradas = 0;
+let cantidadEntradas = 0;
+let entradaSeleccionada;
 
 
 const divSubTotal = document.querySelector('#divSubTotal');
@@ -28,19 +31,21 @@ const btnProcederPago = document.querySelector('.btnProcederPago');
 //Agregar los subtotales al Array de entradas
 const sumarSubTotal = (id_entrada,cantidad) =>{
     let entradaSeleccionada = arrayEntradas.find(item => item.id === id_entrada);
+    //console.log(entradaSeleccionada);
     entradaSeleccionada.cantidad = cantidad;
     entradaSeleccionada.total = parseFloat((parseFloat(entradaSeleccionada.precio) * parseInt(cantidad)).toFixed(2));
+    costoEntradas = 0;
+    cantidadEntradas = 0;
     //Habilitar el botón cuando tenga al menos una entrada seleccionada
-    console.log(arrayEntradas.some(item => item.total > 0));
-    if(arrayEntradas.some(item => item.total > 0)){
+    //console.log(arrayEntradas.some(item => item.total > 0));
+    if(arrayEntradas.some(item => item.cantidad > 0)){
         btnProcederPago.removeAttribute('disabled');
         //Mostrar el subtotal
-        let costoEntradas = 0;
-        let cantidadEntradas = 0;
         arrayEntradas.forEach((obj) => {
+            //obj.total = parseFloat((parseFloat(obj.precio) * parseInt(cantidad)).toFixed(2));
             costoEntradas += parseFloat(obj.total.toFixed(2));
             cantidadEntradas += parseInt(obj.cantidad);
-          });
+        });
         divSubTotal.innerHTML = `
         <table class="table">
         <thead><tr><th>Cantidad de Entradas</th><th>Sub total</th></thead>
@@ -60,8 +65,7 @@ async function getEntradas() {
     const resultado = await response.json();
     //console.log(resultado.entradas);
     return resultado.entradas;
-  }
-  
+} 
 async function mostrarEntradas() {
     const entradas = await getEntradas();
     const tablaEntradas = document.querySelector('#tablaEntradas');
@@ -69,7 +73,7 @@ async function mostrarEntradas() {
     entradas.forEach(entrada => {
     //console.log(entrada);
     //Guardamos todo en un array de clase Entrada
-    arrayEntradas.push(new Entrada(entrada.id,entrada.nombre, entrada.precio,0,0));
+    arrayEntradas.push(new Entrada(entrada.id,entrada.tipo, entrada.precio,0,0));
     //Estados de la entrada, si está agotado, si se ha ocupado el 85% de entradas por sector, o si está disponible.
     let entrada_disponible;
     if(entrada.stock_prc === 100) {
@@ -114,20 +118,84 @@ async function mostrarEntradas() {
     <tbody>
         ${resultado}
     </tbody>`; 
-  }
+}
 
-  
 let btnComprarEntrada = document.querySelector('#comprarEntrada');
 
 btnComprarEntrada.addEventListener('click', () =>{
     btnProcederPago.setAttribute('disabled', '');
     divSubTotal.innerHTML = ``;
+    costoEntradas = 0;
+    cantidadEntradas = 0;
+    arrayEntradas = [];
+    entradaSeleccionada = null;
     $("#modalEntradas").modal("show");
     mostrarEntradas();
 });
 
+const checkVisa = document.querySelector('#checkVisa');
+let dscto = 1;
+checkVisa.addEventListener('change', () =>{
+    dscto = checkVisa.checked ? (1 - 0.15) : 1;
+    document.querySelector('.descuento').innerHTML = (parseFloat(document.querySelector('.subtotal').innerHTML) - (parseFloat(document.querySelector('.subtotal').innerHTML) * dscto)).toFixed(2);
+    document.querySelector('.total').innerHTML = (parseFloat(document.querySelector('.subtotal').innerHTML) * dscto).toFixed(2);
+
+})
+
 
 document.querySelector('#formProcederPago').addEventListener("submit", (e) => {
     e.preventDefault();
+    const tbCarrito = document.querySelector('#tbCarrito');
+    tbCarrito.innerHTML = ``;
+    let subTotal = 0;
+    let resultado = '';
+    console.log(arrayEntradas);
+    arrayEntradas.forEach((obj) => {
+        if(obj.total > 0){
+            subTotal += parseFloat(obj.total.toFixed(2));
+            resultado += 
+            `<tr>
+                <td class="text-start">${obj.tipo}</td>
+                <td class="text-right">${obj.cantidad}</td>
+                <td class="text-end pe-3"><span class="precio_entradas">${obj.precio}</span></td>
+                <td class="text-end pe-3">${obj.total.toFixed(2)}</td>
+            </tr>
+            `;
+        }        
+    }); 
+    tbCarrito.innerHTML = 
+    `<thead>
+        <tr class="bg-dark text-light text-center my-2">
+            <th>Entrada</th>
+            <th>Cantidad</th>
+            <th>Precio $</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead> 
+    <tbody>
+        ${resultado}
+        <tr>
+            <td class="text-start" colspan="2">Subtotal:</td>
+            <td class="text-end pe-3"><span class="subtotal">${subTotal.toFixed(2)}</span></td>
+        </tr>
+        <tr>
+            <td class="text-start" colspan="2">Descuento:</td>
+            <td class="text-end pe-3"><span class="descuento">${(subTotal - (subTotal * dscto)).toFixed(2)}</span></td>
+        </tr>
+        <tr>
+            <td class="text-start" colspan="2">Total:</td>
+            <td class="text-end pe-3"><span class="total">${(subTotal * dscto).toFixed(2)}</span></td>
+        </tr>
+    </tbody>`; 
+    $("#modalEntradas").modal("hide");    
+    $("#modalCarrito").modal("show");
     console.log(e)
+});
+
+
+
+document.querySelector('#formRealizarCompra').addEventListener("submit", (e) => {
+    e.preventDefault();
+    $("#modalCarrito").modal("hide");
+    toastr.success(`Se realizó su compra exitosamente, revise su correo para ver los detalles.`,'Mensaje');
 });

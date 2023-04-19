@@ -110,7 +110,7 @@
     <footer class="text-center text-lg-start bg-secondary">
         <!-- Copyright -->
         <div class="text-center text-white p-3">
-          © 2023 - Entrega Final - Estudiante: Jaime Noriega Vásquez
+            © 2023 - Entrega Final - Estudiante: Jaime Noriega Vásquez
         </div>
         <!-- Copyright -->
     </footer>
@@ -127,14 +127,16 @@
                         <p>Bienvenido! Aquí podrás comprar tus entradas de manera segura.</p>
                         <p>Aquí te dejo el detalle de entradas:</p>
                         <div class="table-responsive mt-5 mb-3">
-                            <table id="tablaEntradas" class="table"></table>
+                            <table id="tablaEntradas" class="table">
+                                <tr><td>Cargando...</td></tr>
+                            </table>
                         </div>
                         <div class="table-responsive  col-md-6 offset-md-3" id="divSubTotal">
                         </div>
                         <p class="text-success">Recuerda que tienes un 15% pagando con VISA hasta el 31/05/2023 11:59 p.m. o agotar stock.</p>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">He leído, entiendo y acepto todas las condiciones indicadas en la página principal para comprar mis entradas.</label>
+                            <input class="form-check-input" type="checkbox" value="1" id="checkConfirmar" required>
+                            <label class="form-check-label" for="checkConfirmar">He leído, entiendo y acepto todas las condiciones indicadas en la página principal para comprar mis entradas.</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -156,6 +158,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="checkVisa">
+                            <label class="form-check-label" for="checkVisa">Pagará con visa?</label>
+                        </div>
                         <span id="txtCarrito"></span>
                         <div id="divCarrito" class="table table-responsive">
                             <table id="tbCarrito" class="table">
