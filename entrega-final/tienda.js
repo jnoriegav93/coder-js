@@ -54,12 +54,12 @@ const productos = [
 productos.forEach(prod =>{
     divProductos.innerHTML += `<div class="card col-md-3 m-x1">
     <div class="card-body">
-        <img src="resources/img/tienda/shop/${prod.imagen}" alt=""  style="width: 100%; max-width:600px" class="img-fluid"> 
+        <img src="resources/img/tienda/shop/${prod.imagen}" alt="" class="img-fluid"> 
         <small class="text-muted">Categoría: ${prod.tipo}</small>
         <h5 class="card-title">${prod.nombre}</h5> 
         <p class="card-text">Color: ${prod.color}</p>
         <p class="card-text">Precio: ${prod.precio}</p>
-        <button class="btn btn-primary btnAgregar" id="${prod.id}">Agregar</button>
+        <button class="btn btn-primary btn-rounded btn-shadow px-4 btnAgregar" id="${prod.id}">Agregar</button>
     </div>
 </div>`;
 });
@@ -71,7 +71,7 @@ const carrito = [];
 const botonesAgregar = document.querySelectorAll('.btnAgregar');
 botonesAgregar.forEach(boton =>{
     boton.onclick = () =>{
-        const producto = productos.find(p=>p.id === parseInt(boton.id));        
+        const producto = productos.find(p=>p.id === parseInt(boton.id));
         const prodCarrito = {
             id: producto.id,
             nombre: producto.nombre,
@@ -86,6 +86,13 @@ botonesAgregar.forEach(boton =>{
         }
         console.log(carrito);
         toastr.success(`${producto.nombre} agregado al carrito`,'Mensaje');
+        //Sumar los items
+        let sumaItemsCarrito = carrito.reduce((total, itemCarrito) =>{
+            return total + itemCarrito.cantidad
+        },0);
+        document.querySelector('.itemsCarritoNavbar').innerHTML= `${sumaItemsCarrito} Item${sumaItemsCarrito > 1 ? 's' : ''}`;
+        document.querySelector('.itemsCarritoFixed').innerHTML= `${sumaItemsCarrito}`;
+        
     }
 });
 
@@ -123,6 +130,10 @@ botonFinalizar.onclick = () =>{
             </tr>
         </tbody>`;
 
+}
+
+const abrirCarrito = () => {
+    botonFinalizar.click();
 }
 
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-tienda.css">
     <title>Evento - Tienda</title>
 </head>
@@ -25,11 +25,19 @@
                     <li class="nav-item"><a class="nav-link" href="tienda.html">Tienda</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
                 </ul>
-                <span class="navbar-text" id="usuarioRegistrado">Invitado</span>
+                <div class="cart-icon-inline finalizarCompra">
+                    <img src="resources/img/tienda/shop-cart-color.png" alt="Carrito">
+                    <span class="itemsCarritoNavbar ms-3">0 Items</span>
+                </div>
+                <p class="navbar-text ms-3" id="usuarioRegistrado">Invitado</p>
             </div>
         </div>
     </nav>
     <article class="bg-light mb-10">
+        <a href="javascript:void(0)" class="cart-icon-fixed" onclick="abrirCarrito()">
+            <img src="resources/img/tienda/shop-cart-color.png" alt="Carrito">
+            <span class="itemsCarritoFixed">0</span>
+        </a>
         <section>
             <div class="portada" style="background: url('resources/img/tienda/portada-tienda.jpg'); background-size: cover; height: 400px; opacity: 0.6;"></div>
         </section>
@@ -72,7 +80,7 @@
         <section class="container mb-6">
             <h3>Productos disponibles:</h3>
             <div id="listaProductos" class="row"></div>
-            <button class="btn btn-success my-4 finalizarCompra">Finalizar compra</button>
+            <button class="btn btn-success my-4 display-none finalizarCompra">Finalizar compra</button>
             <p>Quieres hacer compras mayores? 
                 <a href="#" class="btn btn-dark btn-sm">Contáctanos <img src="resources/img/tienda/whatsapp.png" alt="" width="32px"> </a>
             </p>
