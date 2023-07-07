@@ -1,7 +1,7 @@
 Estudiante:  Jaime Noriega Vásquez
 
 # Primera pre entrega: Simulador interactivo
-- Web: https://jnoriegav93.github.io/coder/pre-entrega-1/
+- Web: https://jnoriegav93.github.io/js_coder/pre-entrega-1/
 
 ## Instrucciones del programa
 1. Muestra el menú principal, el programa termina cuando ingresa la opción 0.
