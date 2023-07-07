@@ -1,7 +1,7 @@
 Estudiante: Jaime Noriega Vásquez
 
 # Repositorio principal para JS - Coderhouse
-https://jnoriegav93.github.io/coder/
+https://jnoriegav93.github.io/js_coder/
 
 ##  Comandos nuevo repositorio
 1. git init => crea repositorio
