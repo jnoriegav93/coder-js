@@ -1,7 +1,7 @@
 Estudiante:  Jaime Noriega Vásquez
 
 # Tercera pre entrega: Optimización del proyecto
-- Web: https://jnoriegav93.github.io/coder/pre-entrega-3/
+- Web: https://jnoriegav93.github.io/js_coder/pre-entrega-3/
 
 ## Instrucciones del programa
 1. Al ingresar, mediante un modal, el sistema le pide al usuario que se identifique, caso contrario, entrará como invitado.
