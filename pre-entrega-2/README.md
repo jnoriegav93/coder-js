@@ -1,7 +1,7 @@
 Estudiante:  Jaime Noriega Vásquez
 
 # Segunda pre entrega: Estructura, variables y objetos
-- Web: https://jnoriegav93.github.io/coder/pre-entrega-2/
+- Web: https://jnoriegav93.github.io/js_coder/pre-entrega-2/
 
 ## Instrucciones del programa
 1. Ingresar el nombre del comprador/a.
