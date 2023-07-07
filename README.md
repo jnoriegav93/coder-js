@@ -1,6 +1,6 @@
 Estudiante: Jaime Noriega Vásquez
 
-# Repositorio principal para Coderhouse
+# Repositorio principal para JS - Coderhouse
 https://jnoriegav93.github.io/coder/
 
 ##  Comandos nuevo repositorio
