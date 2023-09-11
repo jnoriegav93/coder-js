@@ -1,7 +1,7 @@
 Estudiante:  Jaime Noriega Vásquez
 
 # Entrega final del curso
-- Web: https://jnoriegav93.github.io/coder/entrega-final/
+- Web: https://jnoriegav93.github.io/js_coder/entrega-final/
 
 ## Indicaciones
 1. El sitio web cuenta con 2 páginas: evento y tienda (merchandising).
