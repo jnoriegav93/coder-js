@@ -1,7 +1,101 @@
 let map;
 let drawingManager;
 
+let menuPanel  = document.querySelector("#floating-menu-panel");
+let submenuPanel = document.querySelector("#floating-submenu-panel");
+let menuIcon = document.querySelector("#btnMenu > i");
+let floatingModal  = document.querySelector("#floating-modal");
+
 function initMap() {
+    // Asigna eventos de clic a los botones
+    document.getElementById('btnMenu').addEventListener('click', function () {
+        if (menuIcon.classList.contains("fa-bars")) {
+            menuIcon.classList.remove("fa-bars");
+            menuIcon.classList.add("fa-times");
+            if (menuPanel.classList.contains("d-none")) {
+                menuPanel.classList.remove("d-none");
+                if (!submenuPanel.classList.contains("d-none")) {
+                    submenuPanel.classList.add("d-none");
+                }
+            }
+        } else {
+            menuIcon.classList.remove("fa-times");
+            menuIcon.classList.add("fa-bars");
+            menuPanel.classList.add("d-none");
+        }
+    });
+    
+    document.getElementById('btnVista').addEventListener('click', function () {
+        drawingManager.setOptions({
+            drawingControl: false,
+            drawingMode: null
+        });
+        map.setOptions({ draggable: true });
+        if (!menuPanel.classList.contains("d-none")) {
+            menuIcon.classList.remove("fa-times");
+            menuIcon.classList.add("fa-bars");
+            menuPanel.classList.add("d-none");
+        }
+        if (!submenuPanel.classList.contains("d-none")) {
+            submenuPanel.classList.add("d-none");
+        }
+    });
+
+    document.getElementById('btnCrear').addEventListener('click', function () {
+        if(submenuPanel.classList.contains("d-none")){
+            submenuPanel.classList.remove("d-none");
+            if (!menuPanel.classList.contains("d-none")) {
+                menuPanel.classList.add("d-none");
+                menuIcon.classList.remove("fa-times");
+                menuIcon.classList.add("fa-bars");
+            }
+        }else{
+            submenuPanel.classList.add("d-none");
+        }
+        
+    });
+
+    //Crear
+    document.getElementById('btnONU').addEventListener('click', function () {
+        activateDrawInteraction('marker', 'ONU');
+    });
+    document.getElementById('btnMufa').addEventListener('click', function () {
+        activateDrawInteraction('marker', 'Mufa');
+    });
+    document.getElementById('btnPoste').addEventListener('click', function () {
+        activateDrawInteraction('marker', 'Poste');
+    });
+    document.getElementById('btnSplitter').addEventListener('click', function () {
+        activateDrawInteraction('marker', 'Splitter');
+    });
+    document.getElementById('btnFibra').addEventListener('click', function () {
+        activateDrawInteraction('line', 'Fibra');
+    });
+    // document.getElementById('polygonBtn').addEventListener('click', function () {
+    //     activateDrawInteraction('polygon', 'Dibujar Polígono');
+    // });
+
+
+    
+
+    document.getElementById('btnGuardar').addEventListener('click', function () {
+        // Aquí puedes agregar la lógica para guardar según la herramienta seleccionada
+        alert('Guardando datos de la herramienta: ');
+    });
+
+    document.getElementById('btnCancelar').addEventListener('click', function () {
+        document.querySelectorAll('#formRegistrar [required]').forEach(function(elemento) {
+            elemento.removeAttribute('required');
+          });
+        if (!floatingModal.classList.contains("d-none")) {
+            floatingModal.classList.add("d-none");
+        }
+    });
+    
+    document.querySelector('#formRegistrar').addEventListener("submit", (e) => {
+        e.preventDefault();
+    });
+
     // Configura la ubicación inicial del mapa
     let myLatLng = { lat: -12.0651359, lng: -77.0337622 };
 
@@ -17,97 +111,45 @@ function initMap() {
         map: map
     });
 
-    //  const drawingManagerz = new google.maps.drawing.DrawingManager({
-    //     drawingMode: google.maps.drawing.OverlayType.MARKER,
-    //     drawingControl: true,
-    //     drawingControlOptions: {
-    //     position: google.maps.ControlPosition.TOP_CENTER,
-    //     drawingModes: [
-    //         google.maps.drawing.OverlayType.MARKER,
-    //         google.maps.drawing.OverlayType.CIRCLE,
-    //         google.maps.drawing.OverlayType.POLYGON,
-    //         google.maps.drawing.OverlayType.POLYLINE,
-    //         google.maps.drawing.OverlayType.RECTANGLE,
-    //     ],
-    //     },
-    //     markerOptions: {
-    //     icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-    //     },
-    //     circleOptions: {
-    //     fillColor: "#ffff00",
-    //     fillOpacity: 1,
-    //     strokeWeight: 5,
-    //     clickable: false,
-    //     editable: true,
-    //     zIndex: 1,
-    //     },
+    // google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
+    //     if (event.type == 'marker' || event.type == 'polygon' || event.type == 'polyline') {
+    //         drawingManager.setDrawingMode(null);
+    //         // Aquí puedes realizar acciones adicionales con el objeto event.overlay, por ejemplo, guardar las coordenadas o personalizar el objeto.
+    //     }
     // });
 
-    // drawingManagerz.setMap(map);
-
-    google.maps.event.addListener(drawingManager, 'overlaycomplete', function (event) {
-        if (event.type == 'marker' || event.type == 'polygon' || event.type == 'polyline') {
-            drawingManager.setDrawingMode(null);
-            // Aquí puedes realizar acciones adicionales con el objeto event.overlay, por ejemplo, guardar las coordenadas o personalizar el objeto.
+    function activateDrawInteraction(objectType, toolTitle) {
+        if (floatingModal.classList.contains("d-none")) {
+            floatingModal.classList.remove("d-none");
         }
-    });
-
-    // Asigna eventos de clic a los botones
-    document.getElementById('markerBtn').addEventListener('click', function () {
-        activateDrawInteraction('marker', 'Crear Marcador');
-        setActiveButton('markerBtn');
-    });
-
-    document.getElementById('lineBtn').addEventListener('click', function () {
-        activateDrawInteraction('line', 'Crear Línea');
-        setActiveButton('lineBtn');
-    });
-
-    document.getElementById('polygonBtn').addEventListener('click', function () {
-        activateDrawInteraction('polygon', 'Dibujar Polígono');
-        setActiveButton('polygonBtn');
-    });
-
-    document.getElementById('panBtn').addEventListener('click', function () {
-        activateDrawInteraction('pan', 'Mover Mapa');
-        setActiveButton('panBtn');
-    });
-    document.getElementById('darkModeBtn').addEventListener('click', function () {
-        activateDarkMode();
-    });
-
-    // Asigna evento de clic al botón de guardar
-    document.getElementById('saveBtn').addEventListener('click', function () {
-        // Aquí puedes agregar la lógica para guardar según la herramienta seleccionada
-        alert('Guardando datos de la herramienta: ' + selectedTool);
-    });
-    // Función para actilet el modo oscuro
-    function activateDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-
-    // Función para resaltar el botón activo
-    function setActiveButton(activeBtnId) {
-        let buttons = document.querySelectorAll('button');
-        buttons.forEach(function (button) {
-            button.classList.remove('active-button');
-        });
-        document.getElementById(activeBtnId).classList.add('active-button');
-    }
-
-    function activateDrawInteraction(functionType, toolTitle) {
+        document.querySelector('#modal-title').innerHTML = 'Agregar '+ toolTitle;
+        let arrayIconos = [
+            { tipo: 'ONU', url: '../resources/img/onu.png' },
+            { tipo: 'Mufa', url: './resources/img/mufa.png' },
+            { tipo: 'Poste', url: './resources/img/poste.png' },
+            { tipo: 'Splitter', url: './resources/img/splitter.png' }
+        ];
         console.log(toolTitle);
-        drawingManager.setMap(null); // Desactivar DrawingManager para cualquier funcionalidad previa
-        switch (functionType) {
-            case 'pan':
-                // Mover mapa
-                map.setOptions({ draggable: true });
-                break;
+        drawingManager.setMap(null);
+        switch (objectType) {
             case 'marker':
+                //Agregar formulario
+                document.querySelector('#modal-content').innerHTML = `
+                <label for="marker-title">Título:</label>
+                <input type="text" id="marker-title" name="marker-title" class="form-control" required>
+                <label for="marker-description">Descripción:</label>
+                <textarea id="marker-description" name="marker-description" class="form-control" required></textarea>
+                `;
+                
+                let iconoSeleccionado = arrayIconos.find(objeto =>objeto.tipo === toolTitle);
                 // Crear marcador
                 drawingManager.setOptions({
                     drawingControl: false,
-                    drawingMode: google.maps.drawing.OverlayType.MARKER
+                    drawingMode: google.maps.drawing.OverlayType.MARKER,
+                    markerOptions: {
+                        //icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                        icon: iconoSeleccionado ? iconoSeleccionado.url : null
+                    }
                 });
                 break;
             case 'line':
@@ -143,4 +185,5 @@ function initMap() {
 
 
     }
+
 }
