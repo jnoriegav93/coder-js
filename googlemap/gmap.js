@@ -15,6 +15,7 @@ let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
 
 function initMap() {
+    alert('initMap');
     // Configura la ubicación inicial del mapa
     let myLatLng = { lat: -12.0651359, lng: -77.0337622 };
 
