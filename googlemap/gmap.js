@@ -15,7 +15,6 @@ let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
 
 function initMap() {
-    console.log(window.location);
     // Configura la ubicación inicial del mapa
     let myLatLng = { lat: -12.0651359, lng: -77.0337622 };
 
@@ -95,7 +94,7 @@ function initMap() {
                 position: event.latLng,
                 map: map,
                 draggable: true,
-                icon: '../resources/img/onu.png',
+                icon: 'resources/img/onu.png',
                 infoWindow: new google.maps.InfoWindow({
                     content: 'Nueva ONU'
                 })
@@ -134,7 +133,7 @@ function initMap() {
                 position: event.latLng,
                 map: map,
                 draggable: true,
-                icon: '../resources/img/mufa.png',
+                icon: 'resources/img/mufa.png',
                 infoWindow: new google.maps.InfoWindow({
                     content: 'Nueva mufa'
                 })
@@ -172,7 +171,7 @@ function initMap() {
                 position: event.latLng,
                 map: map,
                 draggable: true,
-                icon: '../resources/img/poste.png',
+                icon: 'resources/img/poste.png',
                 infoWindow: new google.maps.InfoWindow({
                     content: 'Nuevo poste'
                 })
@@ -207,7 +206,7 @@ function initMap() {
                 position: event.latLng,
                 map: map,
                 draggable: true,
-                icon: '../resources/img/splitter.png',
+                icon: 'resources/img/splitter.png',
                 infoWindow: new google.maps.InfoWindow({
                     content: 'Nuevo splitter'
                 })
@@ -248,7 +247,7 @@ function initMap() {
                 position: event.latLng,
                 map: map,
                 draggable: true,
-                icon: '../resources/img/lineNode.png',
+                icon: 'resources/img/lineNode.png',
                 title: `Nodo ${lineNodes.length + 1}`
               });
             nodeMarker.addListener('dragend', function() {
