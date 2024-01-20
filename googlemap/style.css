@@ -46,7 +46,7 @@ body{
 
 #floating-submenu-panel{
     position: absolute;
-    top: 45px;
+    top: 44px;
     width: 100vw;
     max-width: 250px;
 }
@@ -57,17 +57,24 @@ body{
 
 #floating-modal {
     position: absolute;
-    top: 60px;
+    top: 55px;
     right: 10px;
-    width: 25%;
+    width: 100%;
+    max-width: 400px;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
     z-index: 1000; /* Asegura que aparezca encima del mapa */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 #modal-content{
     max-width: 100%;
     overflow: auto;
+}
+#modal-info{
+    max-height: 200px;
+    overflow-y: auto;
 }
