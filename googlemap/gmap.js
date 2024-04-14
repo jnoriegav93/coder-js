@@ -698,7 +698,7 @@ function dibujarMarcador(marcador){
 }
 function verMarcador(tipo,id){
     const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x[tipo.toLowerCase()+'_id'] == id)[0];
-    // console.log('verMarcador',listaObjetos[tipo],item)
+    console.log('verMarcador',listaObjetos[tipo],item)
     const center = new google.maps.LatLng(item.lat, item.lon);
     map.panTo(center);
     map.setZoom(18);
