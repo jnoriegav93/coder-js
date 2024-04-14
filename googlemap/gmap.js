@@ -1,3 +1,4 @@
+//2.02
 let map;
 let marker;
 let leftClickListener;
