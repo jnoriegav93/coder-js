@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+/* 
+.gm-control-active > img{
+    background-color: #3020dd !important; 
+} 
+*/
+
 body{
     margin: 0;
     padding: 0;
@@ -36,18 +42,24 @@ body{
     top: 60px;
     left: 5px;
     width: 100vw;
+    height: 100%;
     max-width: 250px;
+    max-height: 70vh;
+    overflow-y:auto;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
     z-index: 1000; /* Asegura que aparezca encima del mapa */
 }
-
+#floating-submenu-panel-items{
+    /* position: absolute; */
+    width: 100%;
+    max-width: 250px;
+}
 #floating-submenu-panel{
     position: absolute;
-    top: 44px;
-    width: 100vw;
+    width: 100%;
     max-width: 250px;
 }
 #floating-submenu-panel > a {
