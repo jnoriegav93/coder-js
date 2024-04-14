@@ -565,7 +565,7 @@ function initMap() {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        fetch(`http://localhost:3001/${apiUrl.tipo}/${apiUrl.funcion}`)
+        fetch(`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
