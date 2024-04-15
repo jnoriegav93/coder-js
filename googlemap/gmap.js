@@ -14,8 +14,8 @@ let menuPanel  = document.querySelector("#floating-menu-panel");
 let submenuPanel = document.querySelector("#floating-submenu-panel");
 let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
-
-
+const url_servidor = 'https://red-api.onrender.com';
+//const url_servidor = 'localhost';
 
 function initMap() {
     // Configura la ubicación inicial del mapa
@@ -31,6 +31,7 @@ function initMap() {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
         }
     });
+    cargarMenuPrincipal();
     // Asigna eventos de clic a los botones
     document.getElementById('btnMenu').addEventListener('click', function () {
         ocultarPaneles();
@@ -49,8 +50,7 @@ function initMap() {
             menuIcon.classList.add("fa-bars");
             menuPanel.classList.add("d-none");
         }
-    });
-    
+    });   
     document.getElementById('btnVista').addEventListener('click', function () {
         map.setOptions({ draggable: true });
         if (!menuPanel.classList.contains("d-none")) {
@@ -65,7 +65,6 @@ function initMap() {
         limpiarObjetos();
         limpiarListeners();
     });
-
     document.getElementById('btnCrear').addEventListener('click', function () {
         ocultarPaneles();
         if(submenuPanel.classList.contains("d-none")){
@@ -80,31 +79,10 @@ function initMap() {
         }
         
     });
-
     //Crear
     document.getElementById('btnONU').addEventListener('click', function () {
         detalleOnu({});
-        /*
-        
-        SELECT *,
-        ST_MakePoint(longitude, latitude) as location
-        FROM your_table;
-
-        let coordinates = [{lat: 50, lon: 30}, {lat: 50, lon: 40}];
-        let geojson = {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "type": "LineString",
-            "coordinates": coordinates.map(point => [point.lon, point.lat]) // GeoJSON uses [lon, lat]
-        }
-        };
-        let geojsonString = JSON.stringify(geojson);
-        INSERT INTO your_table (geom)
-        VALUES (ST_GeomFromGeoJSON(:geojsonString));
-        */
     });
-
     document.getElementById('btnMufa').addEventListener('click', function () {
         limpiarListeners();
         limpiarObjetos();
@@ -115,7 +93,7 @@ function initMap() {
         leftClickListener = map.addListener('click', function(event) {
             marker && marker.setMap(null); // limpiar marcadores
             document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + event.latLng.lat() + '<br>Lon: ' +event.latLng.lng();
-            document.querySelector('#mufaCoordenadas').value = `{lat:${event.latLng.lat()},lon:${event.latLng.lng()}}`;
+            document.querySelector('#geom').value = `{"lat":${event.latLng.lat()},"lon":${event.latLng.lng()}}`;
             document.querySelector('#btnGuardar').disabled = false;
             marker = new google.maps.Marker({
                 position: event.latLng,
@@ -132,7 +110,7 @@ function initMap() {
             });
             marker.addListener('dragend', function() {
                 document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + marker.getPosition().lat() + '<br>Lon: ' +marker.getPosition().lng();
-                document.querySelector('#mufaCoordenadas').value = `{lat:${marker.getPosition().lat()},lon:${marker.getPosition().lng()}}`;
+                document.querySelector('#geom').value = `{"lat":${marker.getPosition().lat()},"lon":${marker.getPosition().lng()}}`;
             });
         });
         //Modal
@@ -141,29 +119,30 @@ function initMap() {
         <div class="row mx-0 mb-1">
             <div class="col-12">
                 <label for="">Poste:</label>
-                <select name="mufaPoste" id="mufaPoste" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="0">M001</option></select>
+                <select name="poste_id" id="poste_id" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="1">1</option></select>
             </div>
             <div class="col-6">
                 <label for="">Capacidad:</label>
-                <input type="number" class="form-control form-control-sm" id="mufaCapacidad" name="mufaCapacidad" placeholder="0" maxlength="10" min="0" step=".01" required/>
+                <input type="number" class="form-control form-control-sm" id="capacidad" name="capacidad" placeholder="0" maxlength="10" min="0" step=".01" required/>
             </div>
             <div class="col-6">
                 <label for="">Código de Mufa:</label>
-                <input type="text" class="form-control form-control-sm" id="mufaCodigo" name="mufaCodigo" placeholder="Código" maxlength="10" required/>
+                <input type="text" class="form-control form-control-sm" id="codigo" name="codigo" placeholder="Código" maxlength="10" required/>
             </div>
         </div>
         <div class="row mx-0 mb-1">
             <div class="col-6">
                 <label for="">Hilo de entrada:</label>
-                <select name="mufaHiloEntrada" id="mufaHiloEntrada" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="0">HE1</option></select>
+                <select name="hilo_id_entrada" id="hilo_id_entrada" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="22">22</option></select>
             </div>
             <div class="col-6">
                 <label for="">Hilo de salida:</label>
-                <select name="mufaHiloSalida" id="mufaHiloSalida" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="0">HS1</option></select>
+                <select name="hilo_id_salida" id="hilo_id_salida" class="form-control form-control-sm"required><option value="">Seleccione</option><option value="33">33</option></select>
             </div>
         </div>
         <div class="row mx-0 mb-1">
-            <input type="hidden" class="form-control user-select-none" name="mufaCoordenadas"  id="mufaCoordenadas" autocomplete="off" required/>
+            <input type="hidden" class="form-control user-select-none" id="tipo_formulario" value="mufa" required/>
+            <input type="hidden" class="form-control user-select-none" name="geom"  id="geom" autocomplete="off" required/>
         </div>`;
         if (floatingModal.classList.contains("d-none")) {
             floatingModal.classList.remove("d-none");
@@ -182,7 +161,7 @@ function initMap() {
         leftClickListener = map.addListener('click', function(event) {
             marker && marker.setMap(null); // limpiar marcadores
             document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + event.latLng.lat() + '<br>Lon: ' +event.latLng.lng();
-            document.querySelector('#posteCoordenadas').value = `{lat:${event.latLng.lat()},lon:${event.latLng.lng()}}`;
+            document.querySelector('#posteCoordenadas').value = `{"lat":${event.latLng.lat()},"lon":${event.latLng.lng()}}`;
             document.querySelector('#btnGuardar').disabled = false;
             marker = new google.maps.Marker({
                 position: event.latLng,
@@ -199,7 +178,7 @@ function initMap() {
             });
             marker.addListener('dragend', function() {
                 document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + marker.getPosition().lat() + '<br>Lon: ' +marker.getPosition().lng();
-                document.querySelector('#posteCoordenadas').value = `{lat:${marker.getPosition().lat()},lon:${marker.getPosition().lng()}}`;
+                document.querySelector('#posteCoordenadas').value = `{"lat":${marker.getPosition().lat()},"lon":${marker.getPosition().lng()}}`;
             });
         });
         //Modal
@@ -295,7 +274,7 @@ function initMap() {
         leftClickListener = map.addListener('click', function(event) {
             marker && marker.setMap(null); // limpiar marcadores
             document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + event.latLng.lat() + '<br>Lon: ' +event.latLng.lng();
-            document.querySelector('#splitterCoordenadas').value = `{lat:${event.latLng.lat()},lon:${event.latLng.lng()}}`;
+            document.querySelector('#splitterCoordenadas').value = `{"lat":${event.latLng.lat()},"lon":${event.latLng.lng()}}`;
             document.querySelector('#btnGuardar').disabled = false;
             marker = new google.maps.Marker({
                 position: event.latLng,
@@ -312,7 +291,7 @@ function initMap() {
             });
             marker.addListener('dragend', function() {
                 document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + marker.getPosition().lat() + '<br>Lon: ' +marker.getPosition().lng();
-                document.querySelector('#splitterCoordenadas').value = `{lat:${marker.getPosition().lat()},lon:${marker.getPosition().lng()}}`;            
+                document.querySelector('#splitterCoordenadas').value = `{"lat":${marker.getPosition().lat()},"lon":${marker.getPosition().lng()}}`;            
             });
         });
         //Modal
@@ -366,7 +345,6 @@ function initMap() {
             document.querySelector('#btnFinalizarLinea').classList.add("d-none");
         }
     });
-    
     document.getElementById('btnHilo').addEventListener('click', function () {
         limpiarListeners();
         limpiarObjetos();
@@ -442,8 +420,7 @@ function initMap() {
         if (document.querySelector('#btnFinalizarLinea').classList.contains("d-none")) {
             document.querySelector('#btnFinalizarLinea').classList.remove("d-none");
         }
-    });
-    
+    });    
     //Finalizar la línea
     document.getElementById('btnFinalizarLinea').addEventListener('click', function () {
         if(lineNodes.length > 1){
@@ -474,100 +451,45 @@ function initMap() {
             alert('Debe seleccionar más de un nodo para crear la línea.');
         }
     });
-
     document.getElementById('btnCancelar').addEventListener('click', function () {
         ocultarPaneles();
         limpiarListeners();
         limpiarObjetos();
-    });
-    
+    }); 
     document.querySelector('#formRegistrar').addEventListener("submit", (e) => {
         e.preventDefault();
         let formData = new FormData(e.target);
         let formDataObject = {};
 
         formData.forEach(function(value, key) {
-            formDataObject[key] = value;
+            formDataObject[key] = typeof obj === 'number' ? parseFloat(value) : value;
         });
-        let res = JSON.stringify(formDataObject);
+        // console.log('formDataObject',formDataObject);
+        let data = JSON.stringify(formDataObject);
+        let tipo_formulario = document.querySelector('#tipo_formulario').value;
         // Mostrar los datos en consola como un objeto JSON
-        console.log(res);
-        alert(res);
+        console.log("Datos del formulario",`${url_servidor}/${tipo_formulario}`,'POST',data);
+        enviarJSON(`${url_servidor}/${tipo_formulario}`,'POST',data);
     });
-    //CONEXIÓN AL BACKEND ANTIGUO
-    const arrayTipoMarcadores = 
+    
+}
+function cargarMenuPrincipal(){
+    //Nodejs
+    const arrayElementosMenu = 
     {   
-        /*'onu': {funcion: 'listarOnus',     tipo: 'Onu', icono: 'onu.png'},
-        'mufa': {funcion: 'listarMufas',    tipo: 'Mufa', icono: 'mufa.png'},
-        'poste': {funcion: 'listarPostes',   tipo: 'Poste', icono: 'poste.png'},
-        'splitter': {funcion: 'listarSplitters', tipo: 'Splitter', icono: 'splitter.png'}*/
+        'onu': {tipo: 'onu', funcion: '', icono: 'onu.png', nombreItem: 'cliente_nombre'},
+        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'}/*,
+        'poste': {tipo: 'poste', icono: 'poste.png'},
+        'splitter': {tipo: 'splitter', icono: 'splitter.png'}*/
     }
-    //const apiUrl = 'http://localhost/googlemap-api/api/listarOnus';
-    for(item in arrayTipoMarcadores)
+    for(item in arrayElementosMenu)
     {
-        let apiUrl = arrayTipoMarcadores[item];
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', apiUrl.funcion, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        // fetch(`http://localhost/googlemap-api/api/${apiUrl.funcion}`)//pg
-        fetch(`http://localhost/red-api/api/${apiUrl.funcion}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            //console.log(apiUrl.funcion,data);
-            listaObjetos[apiUrl.tipo] = data;
-            // console.log('fetch',listaObjetos);
-            let items = '';
-            data.forEach( (item) => {
-                item.tipo = apiUrl.tipo;
-                // console.log(item);
-                let elemento_array =  apiUrl.tipo.toLowerCase()+'_id';
-                if(!item.hasOwnProperty('icono')) item.icono = apiUrl.icono;
-                dibujarMarcador(item);
-                // items +=
-                // `<a href="javascript:void(0)" class="list-group-item list-group-item-action small border-0 py-1">
-                //     <input  type="checkbox" name="${apiUrl.tipo}[${item[apiUrl.tipo.toLowerCase()+'_id']}]" id="${apiUrl.tipo}[${item[apiUrl.tipo.toLowerCase()+'_id']}]" 
-                //             onchange="mostrarItem(this,'${apiUrl.tipo}',${item[elemento_array]})" checked><span> ${apiUrl.tipo} ${item.codigo}</span>
-                // </a>`;
-                items +=
-                `<a href="javascript:void(0)" class="list-group-item list-group-item-action small border-0 py-1" onclick="verMarcador('${apiUrl.tipo}',${item[elemento_array]})">
-                    <span> ${apiUrl.tipo} ${item.codigo}</span>
-                </a>`;
-            });
-            document.querySelector('#floating-menu-panel').innerHTML += 
-            `<div id="floating-submenu-panel-items mb-2 fw-bold border-0" class="list-group">
-                <a class="list-group-item list-group-item-action" onclick="mostrarGrupo('grupo_${apiUrl.tipo}')"><span>${apiUrl.tipo} (${data.length})</span></a>
-                <div id="grupo_${apiUrl.tipo}">${items}</div>
-            </div>`;
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            document.querySelector('#floating-menu-panel').innerHTML += 
-            `<div id="floating-submenu-panel-items mb-2 fw-bold border-0" class="list-group">
-                <a class="list-group-item list-group-item-action small"><span>Ocurrió un error al cargar ${apiUrl.tipo}</span></a>
-            </div>`
-        });
-    }
-    //CONEXION A NODEJS
-    const arrayListaPrincipal = 
-    {   
-        'onu': {tipo: 'onu', funcion: '', icono: 'onu.png'}//,
-        // 'mufa': {funcion: 'listarMufas',    tipo: 'Mufa', icono: 'mufa.png'},
-        // 'poste': {funcion: 'listarPostes',   tipo: 'Poste', icono: 'poste.png'},
-        // 'splitter': {funcion: 'listarSplitters', tipo: 'Splitter', icono: 'splitter.png'}
-    }
-    for(item in arrayListaPrincipal)
-    {
-        let apiUrl = arrayListaPrincipal[item];
+        let apiUrl = arrayElementosMenu[item];
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        console.log('url',`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`);
-        fetch(`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`)
+        // console.log('url',`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`);
+        fetch(`${url_servidor}/${apiUrl.tipo}/${apiUrl.funcion}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -575,24 +497,27 @@ function initMap() {
             return response.json();
         })
         .then(data => {
-            //console.log(apiUrl.funcion,data);
+            // console.log('fetchprincipal',apiUrl.funcion,data);
             listaObjetos[apiUrl.tipo] = data;
-            // console.log('fetch',listaObjetos);
+            // console.log('fetch CargaMenu',listaObjetos);
             let items = '';
             data.forEach( (item) => {
                 item.tipo = apiUrl.tipo;
                 console.log(item);
-                let elemento_array =  apiUrl.tipo+'_id';
                 /*if(!item.hasOwnProperty('icono'))*/ item.icono = apiUrl.icono;
-                dibujarMarcador(item);
+                if(item.hasOwnProperty('geom')){
+                    colocarMarcador(item);
+                }else{
+                    item[apiUrl.nombreItem] = 'Error de información';
+                }
                 items +=
-                `<a href="javascript:void(0)" class="list-group-item list-group-item-action small border-0 py-1" onclick="verMarcador('${apiUrl.tipo}',${item[elemento_array]})">
-                    <span> ${apiUrl.tipo} ${item.cliente_nombre}</span>
+                `<a href="javascript:void(0)" class="list-group-item list-group-item-action small border-0 py-1" onclick="centrarMarcador('${apiUrl.tipo}','${item._id}')">
+                    <span> ${apiUrl.tipo} ${item[apiUrl.nombreItem]}</span>
                 </a>`;
             });
             document.querySelector('#floating-menu-panel').innerHTML += 
             `<div id="floating-submenu-panel-items mb-2 fw-bold border-0" class="list-group">
-                <a class="list-group-item list-group-item-action" onclick="mostrarGrupo('grupo_${apiUrl.tipo}')"><span>${apiUrl.tipo} (${data.length})</span></a>
+                <a class="list-group-item list-group-item-action" onclick="mostrarGrupoMarcadores('grupo_${apiUrl.tipo}')"><span>${apiUrl.tipo} (${data.length})</span></a>
                 <div id="grupo_${apiUrl.tipo}">${items}</div>
             </div>`;
         })
@@ -605,7 +530,6 @@ function initMap() {
         });
     }
 }
-
 function ocultarPaneles(){
     document.querySelectorAll('#formRegistrar [required]').forEach(function(elemento) {
         elemento.removeAttribute('required');
@@ -644,8 +568,8 @@ function limpiarObjetos(){
     document.querySelector('#modal-info').innerHTML = '';
     document.querySelector('#btnGuardar').disabled = true;
 }
-//
-function editarRegistro(tipo,id){
+/*
+function editar(tipo,id){
     item = {};
     console.log('listaOb',listaObjetos[tipo]);
     if(listaObjetos[tipo].length > 0){
@@ -658,16 +582,15 @@ function editarRegistro(tipo,id){
         // case 'Splitter':    detalleSplitter(item); break;
         // case 'Hilo':        detalleHilo(item); break;
     }
-}
-function dibujarMarcador(marcador){
+}*/
+function colocarMarcador(marcador){
     mapLayers.push(marcador);
     let contenidoHtml = ``;//Información<br> ${JSON.stringify(marcador)}
     for(let key in marcador){
         contenidoHtml += `<tr><td>${key}:</td><td>${marcador[key]}</td></tr>`;
     }
-    console.log('DibujarMarcador',marcador);
     const coordenadas = JSON.parse(marcador.geom);
-    console.log('DibujarMarcador',coordenadas);
+    // console.log('colocarMarcador',marcador, coordenadas);
     const center = new google.maps.LatLng(coordenadas.lat, coordenadas.lon);
     // const center = new google.maps.LatLng(marcador.lat, marcador.lon);
     marker = new google.maps.Marker({
@@ -680,7 +603,7 @@ function dibujarMarcador(marcador){
             content: `  <div class="m-1">
                             <div class="d-flex justify-content-between">
                                 <span>${marcador.tipo}</span>
-                                <!-- <button onclick="editarRegistro('${marcador.tipo}',${marcador[marcador.tipo.toLowerCase()+'_id']})" class="btn btn-sm btn-primary mx-1">Editar</button> -->
+                                <!-- <button onclick="editar('${marcador.tipo}',${marcador[marcador.tipo.toLowerCase()+'_id']})" class="btn btn-sm btn-primary mx-1">Editar</button> -->
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-sm">
@@ -696,14 +619,15 @@ function dibujarMarcador(marcador){
     });
     map.panTo(center);
 }
-function verMarcador(tipo,id){
-    const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x[tipo.toLowerCase()+'_id'] == id)[0];
-    console.log('verMarcador',listaObjetos[tipo],item)
-    const center = new google.maps.LatLng(item.lat, item.lon);
+function centrarMarcador(tipo,id){
+    const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x._id == id)[0];
+    console.log('centrarMarcador',listaObjetos[tipo],item)
+    const coordenadas = JSON.parse(item.geom);
+    const center = new google.maps.LatLng(coordenadas.lat, coordenadas.lon);
     map.panTo(center);
-    map.setZoom(18);
+    map.setZoom(17.5);
 }
-function mostrarGrupo(tipo){
+function mostrarGrupoMarcadores(tipo){
     let grupo = document.querySelector(`#${tipo}`);
     if(grupo.classList.contains('show')){
         grupo.classList.remove('show');
@@ -718,7 +642,6 @@ function mostrarGrupo(tipo){
         grupo.style.transition = 'opacity 0.6s linear';
     }
 }
-
 function quitarMarcador(marcador){
     console.log(map);
     for (let i = 0; i < map.markers.length; i++) {
@@ -731,25 +654,23 @@ function quitarMarcador(marcador){
         }
     }
 }
-
-function mostrarItem(checkbox,tipo,id){
+function mostrarItemMenu(checkbox,tipo,id){
     // console.log(checkbox,tipo,id);
     // console.log(listaObjetos[tipo]);
-    const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x[tipo.toLowerCase()+'_id'] === id)[0];
+    const item = listaObjetos[tipo].filter(x => x.tipo === tipo && _id === id)[0];
     // console.log('Item encontrado',item);
     if(checkbox.checked){
-        console.log('MostrarItem',item.tipo);
+        console.log('mostrarItemMenu',item.tipo);
         if( ['Onu','Mufa','Poste','Splitter'].includes(tipo)){
-            dibujarMarcador(item);
+            colocarMarcador(item);
         }
     }else{
         console.log('unchecked');
         quitarMarcador(item);
     }
 }
-
 function detalleOnu(data){
-    console.log('detalleOnu',data);
+    // console.log('detalleOnu',data);
     limpiarListeners();
     limpiarObjetos();
     if (!submenuPanel.classList.contains("d-none")) {
@@ -759,7 +680,7 @@ function detalleOnu(data){
     leftClickListener = map.addListener('click', function(event) {
         marker && marker.setMap(null); // limpiar marcadores
         document.querySelector('#modal-info').innerHTML = 'Coordenadas: <br>Lat: ' + event.latLng.lat() + '<br>Lon: ' +event.latLng.lng();
-        document.querySelector('#onuCoordenadas').value = `{lat:${event.latLng.lat()},lon:${event.latLng.lng()}}`;
+        document.querySelector('#geom').value = `{"lat":${event.latLng.lat()},"lon":${event.latLng.lng()}}`;
         document.querySelector('#btnGuardar').disabled = false;
         marker = new google.maps.Marker({
             position: event.latLng,
@@ -777,56 +698,56 @@ function detalleOnu(data){
         marker.addListener('dragend', function() {
             document.querySelector('#modal-info').innerHTML = 
             'Coordenadas: <br>Lat: ' + marker.getPosition().lat() + '<br>Lon: ' + marker.getPosition().lng();
-            document.querySelector('#onuCoordenadas').value = 
-            `{lat:${marker.getPosition().lat()},lon:${marker.getPosition().lng()}}`;            
+            document.querySelector('#geom').value = 
+            `{"lat":${marker.getPosition().lat()},"lon":${marker.getPosition().lng()}}`;            
         });
     });
     //Modal
     document.querySelector('#modal-title').innerHTML = 'Agregar ONU';
-    //prueba 
-    data.hilo_id = '1';
-    data.splitter_id = '2';
-    //fin prueba
     document.querySelector('#modal-content').innerHTML = `
     <div class="row mx-0 mb-1">
         <div class="col-6">
             <label for="">Hilo:</label>
-            <select name="onuHilo" id="onuHilo" class="form-control form-control-sm"required>
-            <option value="">Seleccione</option><option value="${data.hilo_id}">${data.hilo_id}</option></select>
+            <!--<select name="hilo_id" id="hilo_id" class="form-control form-control-sm"required>
+            <option value="">Seleccione</option><option value="${Object.keys(data).length > 0 ? data.hilo_id : '0'}">${Object.keys(data).length > 0 ? data.hilo_id : '0'}</option></select>-->
+            <input type="text" class="form-control form-control-sm" id="hilo_id" name="hilo_id" maxlength="100" value="${Object.keys(data).length > 0 ? data.hilo_id : ''}" required/>
         </div>
         <div class="col-6">
             <label for="">Splitter:</label>
-            <select name="onuSplitter" id="onuSplitter" class="form-control form-control-sm"required>
-            <option value="">Seleccione</option><option value="${data.splitter_id}">${data.splitter_id}</option></select>
+            <!--<select name="splitter_id" id="splitter_id" class="form-control form-control-sm"required>
+            <option value="">Seleccione</option><option value="${Object.keys(data).length > 0 ? data.splitter_id : '0'}">${Object.keys(data).length > 0 ? data.splitter_id : '0'}</option></select>-->
+            <input type="text" class="form-control form-control-sm" id="splitter_id" name="splitter_id" maxlength="100" value="${Object.keys(data).length > 0 ? data.hilo_id : ''}" required/>
         </div>
     </div>
     <div class="row mx-0 mb-1">
         <div class="col-md-12">
             <label for="">Cliente:</label>
-            <select name="onuCliente" id="onuCliente" class="form-control form-control-sm"required>
-            <option value="">Seleccione</option><option value="0">Cliente</option></select>
+            <!--<select name="cliente_nombre" id="cliente_nombre" class="form-control form-control-sm"required>
+            <option value="">Seleccione</option><option value="${Object.keys(data).length > 0 ? data.cliente_nombre : '0'}">${Object.keys(data).length > 0 ? data.cliente_nombre : '0'}</option></select>-->
+            <input type="text" class="form-control form-control-sm" id="cliente_nombre" name="cliente_nombre" value="${Object.keys(data).length > 0 ? data.hilo_id : ''}" required/>
         </div>
         <div class="col-md-12">
             <label for="">Dirección del cliente:</label>
-            <input type="text" class="form-control form-control-sm" id="onuDireccionCliente" name="onuDireccionCliente" placeholder="Dirección" maxlength="100" value="${data ? data.id : ''}" required/>
+            <input type="text" class="form-control form-control-sm" id="cliente_direccion" name="cliente_direccion" placeholder="Dirección" maxlength="100" value="${Object.keys(data).length > 0 ? data.cliente_direccion : ''}" required/>
         </div>
     </div>
     <div class="row mx-0 mb-1">
         <div class="col-4">
             <label for="">Velocidad en MB:</label>
-            <input type="number" class="form-control form-control-sm" id="onuVelocidad" name="onuVelocidad" placeholder="0.00" min="0" step=".01" maxlength="10" value="${data ? data.id : ''}"required/>
+            <input type="number" class="form-control form-control-sm" id="onuVelocidad" name="velocidad_mb" placeholder="0.00" min="0" step=".01" maxlength="10" value="${Object.keys(data).length > 0 ? data.velocidad_mb : ''}"required/>
         </div>
         <div class="col-4">
             <label for="">Inicio Contrato:</label>
-            <input type="date" class="form-control form-control-sm" id="onuInicioContrato" name="onuInicioContrato" value="${data ? data.id : ''}" required/>
+            <input type="date" class="form-control form-control-sm" id="inicio_contrato" name="inicio_contrato" value="${Object.keys(data).length > 0 ? data.inicio_contrato : ''}" required/>
         </div>
         <div class="col-4">
             <label for="">Monto de Pago:</label>
-            <input type="number" class="form-control form-control-sm" id="onuMontoPago" name="onuMontoPago" placeholder="0.00" min="0" step=".01" maxlength="10" value="${data ? data.id : ''}" required/>
+            <input type="number" class="form-control form-control-sm" id="monto_pago" name="monto_pago" placeholder="0.00" min="0" step=".01" maxlength="10" value="${Object.keys(data).length > 0 ? data.id : ''}" required/>
         </div>
     </div>
     <div class="row mx-0 mb-1">
-        <input type="hidden" class="form-control user-select-none" name="onuCoordenadas"  id="onuCoordenadas" autocomplete="off" value="${data ? data.id : 0}" required/>
+        <input type="hidden" class="form-control user-select-none" id="tipo_formulario" value="onu" required/>
+        <input type="hidden" class="form-control user-select-none" name="geom"  id="geom" autocomplete="off" value="${Object.keys(data).length > 0 ? data.geom : ''}" required/>
     </div>`;
     if (floatingModal.classList.contains("d-none")) {
         floatingModal.classList.remove("d-none");
@@ -835,5 +756,33 @@ function detalleOnu(data){
         document.querySelector('#btnFinalizarLinea').classList.add("d-none");
     }
 }
-
-
+//
+async function enviarJSON(url_api,metodo_json,data_json) {
+    try {
+        const response = await fetch(url_api, {
+            method: metodo_json,
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: data_json,
+        });
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        const result = await response.json();
+        alert("Se registró correctamente!");
+        document.querySelector('#btnVista').click();
+        // console.log(result,"Hora de finalización:", new Date().toLocaleTimeString());
+    } catch (error) {
+        console.log(`Tipo de fetch: ${metodo_json}`);
+        console.log(`URL: ${url_api}`);
+        console.log(`Cuerpo de la solicitud: ${data_json}`);
+        if (error.message.includes("Failed to fetch")) {
+            alert("Error de conexión");
+        } else {
+            alert(`Error: ${error.message}`);
+        }
+        console.log(`Error: ${error.message}`);
+        console.log("Hora de finalización:", new Date().toLocaleTimeString());
+    }
+}
