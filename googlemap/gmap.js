@@ -14,8 +14,8 @@ let menuPanel  = document.querySelector("#floating-menu-panel");
 let submenuPanel = document.querySelector("#floating-submenu-panel");
 let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
-// const url_servidor = 'https://red-api.onrender.com';
-const url_servidor = 'http://localhost:3001';
+const url_servidor = 'https://red-api.onrender.com';
+// const url_servidor = 'http://localhost:3001';
 
 function initMap() {
     // Configura la ubicación inicial del mapa
