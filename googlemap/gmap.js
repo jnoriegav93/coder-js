@@ -478,9 +478,9 @@ function cargarMenuPrincipal(){
     const arrayElementosMenu = 
     {   
         'onu': {tipo: 'onu', funcion: '', icono: 'onu.png', nombreItem: 'cliente_nombre'},
-        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'}/*,
+        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'},
         'poste': {tipo: 'poste', icono: 'poste.png'},
-        'splitter': {tipo: 'splitter', icono: 'splitter.png'}*/
+        'splitter': {tipo: 'splitter', icono: 'splitter.png'}
     }
     for(item in arrayElementosMenu)
     {
