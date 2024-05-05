@@ -1,0 +1,14 @@
+body {
+    height: 100vh;
+    margin: 0;
+    background: url('../img/background-login2.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.login-panel {
+    background-color: rgba(255, 255, 255, 0.7); /* Panel blanco transparente */
+    padding: 20px;
+    border-radius: 5px;
+}
