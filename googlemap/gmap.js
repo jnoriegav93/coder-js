@@ -1,4 +1,4 @@
-//2.02
+//2.05
 let map;
 let marker;
 let leftClickListener;
@@ -14,8 +14,8 @@ let menuPanel  = document.querySelector("#floating-menu-panel");
 let submenuPanel = document.querySelector("#floating-submenu-panel");
 let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
-const url_servidor = 'https://red-api.onrender.com';
-//const url_servidor = 'localhost';
+// const url_servidor = 'https://red-api.onrender.com';
+const url_servidor = 'http://localhost:3001';
 
 function initMap() {
     // Configura la ubicación inicial del mapa
@@ -478,9 +478,9 @@ function cargarMenuPrincipal(){
     const arrayElementosMenu = 
     {   
         'onu': {tipo: 'onu', funcion: '', icono: 'onu.png', nombreItem: 'cliente_nombre'},
-        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'},
+        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'}/*,
         'poste': {tipo: 'poste', icono: 'poste.png'},
-        'splitter': {tipo: 'splitter', icono: 'splitter.png'}
+        'splitter': {tipo: 'splitter', icono: 'splitter.png'}*/
     }
     for(item in arrayElementosMenu)
     {
@@ -489,6 +489,7 @@ function cargarMenuPrincipal(){
         xhr.open('GET', '', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         // console.log('url',`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`);
+        // console.log(`${url_servidor}/${apiUrl.tipo}/${apiUrl.funcion}`);
         fetch(`${url_servidor}/${apiUrl.tipo}/${apiUrl.funcion}`)
         .then(response => {
             if (!response.ok) {
@@ -503,7 +504,7 @@ function cargarMenuPrincipal(){
             let items = '';
             data.forEach( (item) => {
                 item.tipo = apiUrl.tipo;
-                console.log(item);
+                // console.log('Api',item);
                 /*if(!item.hasOwnProperty('icono'))*/ item.icono = apiUrl.icono;
                 if(item.hasOwnProperty('geom')){
                     colocarMarcador(item);
@@ -621,7 +622,7 @@ function colocarMarcador(marcador){
 }
 function centrarMarcador(tipo,id){
     const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x._id == id)[0];
-    console.log('centrarMarcador',listaObjetos[tipo],item)
+    // console.log('centrarMarcador',listaObjetos[tipo],item)
     const coordenadas = JSON.parse(item.geom);
     const center = new google.maps.LatLng(coordenadas.lat, coordenadas.lon);
     map.panTo(center);
