@@ -1,4 +1,4 @@
-//2.05
+//2.06
 let map;
 let marker;
 let leftClickListener;
@@ -14,8 +14,9 @@ let menuPanel  = document.querySelector("#floating-menu-panel");
 let submenuPanel = document.querySelector("#floating-submenu-panel");
 let menuIcon = document.querySelector("#btnMenu > i");
 let floatingModal  = document.querySelector("#floating-modal");
-const url_servidor = 'https://red-api.onrender.com';
+// const url_servidor = 'https://red-api.onrender.com';
 // const url_servidor = 'http://localhost:3001';
+const url_servidor = 'https://nodejs-red.onrender.com';
 
 function initMap() {
     // Configura la ubicación inicial del mapa
@@ -32,6 +33,8 @@ function initMap() {
         }
     });
     cargarMenuPrincipal();
+    // const perfil = enviarJSON(`${url_servidor}/api/profile`,'GET',JSON.stringify({}));
+    // console.log('Perfil',perfil);
     // Asigna eventos de clic a los botones
     document.getElementById('btnMenu').addEventListener('click', function () {
         ocultarPaneles();
@@ -470,17 +473,17 @@ function initMap() {
         // Mostrar los datos en consola como un objeto JSON
         console.log("Datos del formulario",`${url_servidor}/${tipo_formulario}`,'POST',data);
         enviarJSON(`${url_servidor}/${tipo_formulario}`,'POST',data);
+        document.querySelector('#btnVista').click();
     });
-    
 }
 function cargarMenuPrincipal(){
     //Nodejs
     const arrayElementosMenu = 
     {   
-        'onu': {tipo: 'onu', funcion: '', icono: 'onu.png', nombreItem: 'cliente_nombre'},
-        'mufa': {tipo: 'mufa', funcion: '', icono: 'mufa.png', nombreItem: 'codigo'}/*,
-        'poste': {tipo: 'poste', icono: 'poste.png'},
-        'splitter': {tipo: 'splitter', icono: 'splitter.png'}*/
+        // 'onu': {tipo: 'onus', icono: 'onu.png', nombreItem: 'cliente_nombre'},
+        // 'mufa': {tipo: 'mufas',  icono: 'mufa.png', nombreItem: 'codigo'},
+        'poste': {tipo: 'postes', icono: 'poste.png', nombreItem: '_id'}//,
+        // 'splitter': {tipo: 'splitters', icono: 'splitter.png', nombreItem: 'codigo'}
     }
     for(item in arrayElementosMenu)
     {
@@ -489,8 +492,8 @@ function cargarMenuPrincipal(){
         xhr.open('GET', '', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         // console.log('url',`https://red-api.onrender.com/${apiUrl.tipo}/${apiUrl.funcion}`);
-        // console.log(`${url_servidor}/${apiUrl.tipo}/${apiUrl.funcion}`);
-        fetch(`${url_servidor}/${apiUrl.tipo}/${apiUrl.funcion}`)
+        console.log(`${url_servidor}/api/${apiUrl.tipo}`);
+        fetch(`${url_servidor}/api/${apiUrl.tipo}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -498,15 +501,14 @@ function cargarMenuPrincipal(){
             return response.json();
         })
         .then(data => {
-            // console.log('fetchprincipal',apiUrl.funcion,data);
             listaObjetos[apiUrl.tipo] = data;
-            // console.log('fetch CargaMenu',listaObjetos);
+            console.log('fetch CargaMenu',listaObjetos);
             let items = '';
             data.forEach( (item) => {
                 item.tipo = apiUrl.tipo;
-                // console.log('Api',item);
+                console.log('Api',item);
                 /*if(!item.hasOwnProperty('icono'))*/ item.icono = apiUrl.icono;
-                if(item.hasOwnProperty('geom')){
+                if(item.hasOwnProperty('geometry')){
                     colocarMarcador(item);
                 }else{
                     item[apiUrl.nombreItem] = 'Error de información';
@@ -590,9 +592,9 @@ function colocarMarcador(marcador){
     for(let key in marcador){
         contenidoHtml += `<tr><td>${key}:</td><td>${marcador[key]}</td></tr>`;
     }
-    const coordenadas = JSON.parse(marcador.geom);
+    const coordenadas = JSON.parse(marcador.geometry);
     // console.log('colocarMarcador',marcador, coordenadas);
-    const center = new google.maps.LatLng(coordenadas.lat, coordenadas.lon);
+    const center = new google.maps.LatLng(coordenadas.coordinates[1], coordenadas.coordinates[0]);
     // const center = new google.maps.LatLng(marcador.lat, marcador.lon);
     marker = new google.maps.Marker({
         position: center,
@@ -623,8 +625,8 @@ function colocarMarcador(marcador){
 function centrarMarcador(tipo,id){
     const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x._id == id)[0];
     // console.log('centrarMarcador',listaObjetos[tipo],item)
-    const coordenadas = JSON.parse(item.geom);
-    const center = new google.maps.LatLng(coordenadas.lat, coordenadas.lon);
+    const coordenadas = JSON.parse(item.geometry);
+    const center = new google.maps.LatLng(coordenadas.coordinates[1], coordenadas.coordinates[0]);
     map.panTo(center);
     map.setZoom(17.5);
 }
@@ -760,28 +762,36 @@ function detalleOnu(data){
 //
 async function enviarJSON(url_api,metodo_json,data_json) {
     try {
-        const response = await fetch(url_api, {
+        // const response = await fetch(url_api, {
+        //     method: metodo_json,
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     }
+        // });
+        const options = {
             method: metodo_json,
             headers: {
-            "Content-Type": "application/json",
-            },
-            body: data_json,
-        });
+                'Content-Type': 'application/json',
+            }
+        };
+        // Si el método es POST o PUT, incluye el cuerpo en las opciones
+        if (metodo_json === 'POST' || metodo_json === 'PUT') {
+            options.body = JSON.stringify(data);
+        }
+        const response = await fetch(url_api, options);
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
         }
         const result = await response.json();
-        alert("Se registró correctamente!");
-        document.querySelector('#btnVista').click();
         // console.log(result,"Hora de finalización:", new Date().toLocaleTimeString());
     } catch (error) {
         console.log(`Tipo de fetch: ${metodo_json}`);
         console.log(`URL: ${url_api}`);
         console.log(`Cuerpo de la solicitud: ${data_json}`);
         if (error.message.includes("Failed to fetch")) {
-            alert("Error de conexión");
+            console.log("Error de conexión");
         } else {
-            alert(`Error: ${error.message}`);
+            console.log(`Error: ${error.message}`);
         }
         console.log(`Error: ${error.message}`);
         console.log("Hora de finalización:", new Date().toLocaleTimeString());
