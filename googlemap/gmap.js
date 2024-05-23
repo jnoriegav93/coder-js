@@ -506,7 +506,6 @@ function cargarMenuPrincipal(){
             let items = '';
             data.forEach( (item) => {
                 item.tipo = apiUrl.tipo;
-                console.log('Api',item);
                 /*if(!item.hasOwnProperty('icono'))*/ item.icono = apiUrl.icono;
                 if(item.hasOwnProperty('geometry')){
                     colocarMarcador(item);
