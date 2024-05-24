@@ -480,10 +480,10 @@ function cargarMenuPrincipal(){
     //Nodejs
     const arrayElementosMenu = 
     {   
-        // 'onu': {tipo: 'onus', icono: 'onu.png', nombreItem: 'cliente_nombre'},
-        // 'mufa': {tipo: 'mufas',  icono: 'mufa.png', nombreItem: 'codigo'},
-        'poste': {tipo: 'postes', icono: 'poste.png', nombreItem: '_id'}//,
-        // 'splitter': {tipo: 'splitters', icono: 'splitter.png', nombreItem: 'codigo'}
+        'onu': {tipo: 'onus', icono: 'onu.png', nombreItem: '_id'}, //cliente_nombre
+        'mufa': {tipo: 'mufas',  icono: 'mufa.png', nombreItem: '_id'}, //codigo
+        'poste': {tipo: 'postes', icono: 'poste.png', nombreItem: '_id'},
+        'splitter': {tipo: 'splitters', icono: 'splitter.png', nombreItem: '_id'} //codigo
     }
     for(item in arrayElementosMenu)
     {
