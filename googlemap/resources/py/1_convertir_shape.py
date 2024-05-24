@@ -1,6 +1,9 @@
 from osgeo import ogr
 import json
 
+# Deshabilita el uso de excepciones
+ogr.DontUseExceptions()
+
 def convert_shape_to_json(shapefile_path, output_json_path):
     # Abrir el archivo Shapefile
     shapefile = ogr.Open(shapefile_path)
@@ -53,9 +56,9 @@ def convert_shape_to_json(shapefile_path, output_json_path):
         json.dump(geojson_data, json_file, indent=2)
 
     print(f"El archivo GeoJSON se ha creado exitosamente en: {output_json_path}")
-
+# 
 # Uso de la función
-convert_shape_to_json("fibra.shp", "fibra_tmp.json")
-convert_shape_to_json("postes.shp", "postes_tmp.json")
+convert_shape_to_json("fibra.shp", "_fibra_tmp.json")
+convert_shape_to_json("postes.shp", "_postes_tmp.json")
 # convert_shape_to_json("sp_nivel01.shp", "sp_nivel01.json")
 # convert_shape_to_json("sp_nivel02.shp", "sp_nivel02.json")
