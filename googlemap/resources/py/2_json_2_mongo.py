@@ -31,7 +31,7 @@ def agregar_campos(datos):
                 id_correlativo += 1
             
             if 'codigo' not in bloque:
-                bloque['codigo'] = "Código"  # valor predeterminado
+                bloque['codigo'] = "COD" + str(id_correlativo)   # valor predeterminado
             
             if 'user' not in bloque:
                 bloque['user'] = "Usuario"  # usuario predeterminado
@@ -75,8 +75,8 @@ def main(ruta_archivo, ruta_salida):
     else:
         print("No se pudo procesar el archivo JSON.")
 
-main('fibra_tmp.json' , 'fibra_final.json')
-main('postes_tmp.json', 'postes_final.json')
+main('_fibra_tmp.json' , '__fibra_final.json')
+main('_postes_tmp.json', '__postes_final.json')
 
 
 
