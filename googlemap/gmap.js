@@ -382,7 +382,7 @@ function initMap() {
                 path: lineNodes.map(marker => marker.getPosition()),
                 geodesic: true,
                 strokeColor: '#0798ec',
-                strokeOpacity: 1.0,
+                strokeOpacity: 0.9,
                 strokeWeight: 2
             });
             line.setMap(map);
@@ -504,7 +504,7 @@ function cargarMenuPrincipal(){
         })
         .then(data => {
             listaObjetos[apiUrl.tipo] = data;
-            console.log('fetch CargaMenu',listaObjetos);
+            // console.log('fetch CargaMenu',listaObjetos);
             let items = '';
             data.forEach( (item) => {
                 item.tipo = apiUrl.tipo;
@@ -605,6 +605,7 @@ function colocarMarcador(marcador){
         position: center,
         map: map,
         draggable: false,
+        opacity: 0.7,
         icon:  'resources/img/'+ marcador.icono,
         infoWindow: new google.maps.InfoWindow({
             maxWidth: 400,
@@ -629,9 +630,16 @@ function colocarMarcador(marcador){
 }
 function centrarMarcador(tipo,id){
     const item = listaObjetos[tipo].filter(x => x.tipo === tipo && x._id == id)[0];
-    // console.log('centrarMarcador',listaObjetos[tipo],item)
-    const coordenadas = JSON.parse(item.geometry);
-    const center = new google.maps.LatLng(coordenadas.coordinates[1], coordenadas.coordinates[0]);
+    let coordenadas;
+    let center;
+    if(tipo === 'hilos'){
+        coordenadas = JSON.parse(item.geometry).coordinates;
+        console.log(coordenadas[0]);
+        center = new google.maps.LatLng(coordenadas[0][1], coordenadas[0][0]);
+    }else{
+        coordenadas = JSON.parse(item.geometry);
+        center = new google.maps.LatLng(coordenadas.coordinates[1], coordenadas.coordinates[0]);
+    }
     map.panTo(center);
     map.setZoom(17.5);
 }
