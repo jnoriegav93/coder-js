@@ -1,4 +1,4 @@
-//2.06
+//2.07
 let map;
 let marker;
 let leftClickListener;
@@ -480,10 +480,12 @@ function cargarMenuPrincipal(){
     //Nodejs
     const arrayElementosMenu = 
     {   
-        'onu': {tipo: 'onus', icono: 'onu.png', nombreItem: '_id'}, //cliente_nombre
-        'mufa': {tipo: 'mufas',  icono: 'mufa.png', nombreItem: '_id'}, //codigo
+        // 'onu': {tipo: 'onus', icono: 'onu.png', nombreItem: '_id'}, //cliente_nombre
+        // 'mufa': {tipo: 'mufas',  icono: 'mufa.png', nombreItem: '_id'}, //codigo
+        // 'splitter': {tipo: 'splitters', icono: 'splitter.png', nombreItem: '_id'} //codigo
+
         'poste': {tipo: 'postes', icono: 'poste.png', nombreItem: '_id'},
-        'splitter': {tipo: 'splitters', icono: 'splitter.png', nombreItem: '_id'} //codigo
+        'hilo': {tipo: 'hilos', icono: 'lineNode.png', nombreItem: '_id'} //codigo
     }
     for(item in arrayElementosMenu)
     {
@@ -508,7 +510,11 @@ function cargarMenuPrincipal(){
                 item.tipo = apiUrl.tipo;
                 /*if(!item.hasOwnProperty('icono'))*/ item.icono = apiUrl.icono;
                 if(item.hasOwnProperty('geometry')){
-                    colocarMarcador(item);
+                    if(apiUrl.tipo === 'hilos') {
+                        colocarLineas(item);
+                    }else{
+                        colocarMarcador(item);
+                    }
                 }else{
                     item[apiUrl.nombreItem] = 'Error de información';
                 }
@@ -628,6 +634,76 @@ function centrarMarcador(tipo,id){
     const center = new google.maps.LatLng(coordenadas.coordinates[1], coordenadas.coordinates[0]);
     map.panTo(center);
     map.setZoom(17.5);
+}
+function colocarLineas(linea){
+    // if(linea._id === '6650fb5c6dfea4d73278098f'){ //if de prueba
+        // console.log(linea);
+        let pathLinea = [];
+        let contenidoHtml = ``;
+        const arrayOriginal = JSON.parse(linea.geometry).coordinates;
+        //Obtener las coordenadas
+        const arrayCoordenadas = arrayOriginal.map(coord => {
+            if (Array.isArray(coord) && coord.length >= 2 && 
+                typeof coord[0] === 'number' && typeof coord[1] === 'number') {
+                return coord.slice(0, 2);
+            }
+            return null; // Opcional: manejar casos donde la condición no se cumple
+        }).filter(Boolean); // Filtra los valores null
+        // console.log('arrayCoordenadas',arrayCoordenadas);
+        // Calcula las coordenadas del centroide aproximado
+        const bounds = new google.maps.LatLngBounds();
+        arrayCoordenadas.forEach( (coord,id) => {
+            contenidoHtml += `<tr><td>${id}:</td><td>${coord[1]}, ${coord[0]}</td></tr>`;
+            bounds.extend(new google.maps.LatLng(coord[1], coord[0]));
+            pathLinea.push(new google.maps.LatLng(coord[1], coord[0]));
+        });
+        map.fitBounds(bounds);
+        //Agregar los marcadores
+        arrayCoordenadas.forEach(nodo => {
+            nodo = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(nodo[1], nodo[0]),
+                draggable: false,
+                icon:  'resources/img/'+ linea.icono,
+                size: 'small', // Tamaño pequeño del marcador
+                opacity: 0.5,
+                infoWindow: new google.maps.InfoWindow({
+                    maxWidth: 400,
+                    content: `  <div class="m-1">
+                                    <div class="d-flex justify-content-between">
+                                        <span>${linea.tipo}</span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead><tr><th>Propiedad</th><th>Valor</th></tr></thead>
+                                            <tbody>${contenidoHtml}</tbody>
+                                        </table>
+                                    </div>
+                                </div>`
+                })
+            });
+            nodo.addListener('click', function() {
+                this.infoWindow.open(map, this);
+            });
+            //Dibujar las líneas
+            const lineasFinales = new google.maps.Polyline({
+                strokeOpacity: 0.5,
+                strokeWeight: 2,
+            });
+    
+        });
+        //Agregar la linea
+        const polyline = new google.maps.Polyline({
+            path: pathLinea,
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+        });
+        //colores aleatorios
+        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        polyline.setOptions({ strokeColor: '#' + randomColor });
+        polyline.setMap(map);
+    // } // fin del if de prueba
+
 }
 function mostrarGrupoMarcadores(tipo){
     let grupo = document.querySelector(`#${tipo}`);
