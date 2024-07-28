@@ -1,4 +1,4 @@
-//2.07
+//2.08
 let map;
 let marker;
 let leftClickListener;
@@ -18,6 +18,9 @@ let floatingModal  = document.querySelector("#floating-modal");
 // const url_servidor = 'http://localhost:3001';
 const url_servidor = 'https://nodejs-red.onrender.com';
 
+const markers = [];// Crea un array global para almacenar los marcadores
+let markerCluster;// Crea el objeto de agrupación de marcadores fuera de la función colocarMarcador
+
 function initMap() {
     // Configura la ubicación inicial del mapa
     let myLatLng = { lat: -12.0651359, lng: -77.0337622 };
@@ -32,6 +35,10 @@ function initMap() {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
         }
     });
+    //Cluster
+    markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    //fin cluster
+    
     cargarMenuPrincipal();
     // const perfil = enviarJSON(`${url_servidor}/api/profile`,'GET',JSON.stringify({}));
     // console.log('Perfil',perfil);
@@ -626,6 +633,13 @@ function colocarMarcador(marcador){
     marker.addListener('click', function() {
         this.infoWindow.open(map, this);
     });
+    // cluster
+    // Agrega el marcador al array global de marcadores
+    markers.push(marker);
+    // Actualiza el agrupador de marcadores
+    markerCluster.addMarker(marker);
+    // fin clusters
+    
     map.panTo(center);
 }
 function centrarMarcador(tipo,id){
