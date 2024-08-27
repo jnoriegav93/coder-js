@@ -61,7 +61,8 @@ const sumarSubTotal = (id_entrada,cantidad) =>{
 
 //Cargar entrada
 async function getEntradas() {
-    const response = await fetch('https://jnoriegav93.github.io/coder/entrega-final/resources/json/entradas.json'); //obtener el json con el array de entradas
+    //const response = await fetch('https://jnoriegav93.github.io/coder/entrega-final/resources/json/entradas.json'); //obtener el json con el array de entradas
+    const response = await fetch('json/entradas.json'); //obtener el json con el array de entradas
     const resultado = await response.json();
     //console.log(resultado.entradas);
     return resultado.entradas;
